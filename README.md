@@ -12,5 +12,7 @@ Modular for laravel
 provider `Monsterz\Paagez\Providers\PaagezServiceProvider::class` add to `config\app.php`
 
 run `php artisan paagez:publish`
+
 run `php artisan paagez:install`
+
 go to `/pz-admin/` to continue intallation
