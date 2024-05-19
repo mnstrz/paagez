@@ -1,0 +1,192 @@
+.timepicker-container {
+  position: relative;
+  width: 100%;
+  height: 0px;
+}
+.timepicker-container.timepicker-bottom .timepicker-dialog {
+  bottom: 0px;
+  top: auto;
+}
+.timepicker-container.timepicker-right .timepicker-dialog {
+  right: 0px;
+  left: auto;
+}
+.timepicker-container .timepicker-dialog {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 240px;
+  height: 280px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  padding: 10px;
+  z-index: 100;
+}
+.timepicker-container .timepicker-dialog .timepicker-body {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin-bottom: 10px;
+}
+.timepicker-container .timepicker-dialog .timepicker-body:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: var(--bs-blue-100);
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1001;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10000px;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .label {
+  position: absolute;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  left: 0px;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1010;
+  width: 80px;
+  height: 80px;
+  border-radius: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  background-color: var(--bs-blue-300);
+}
+.timepicker-container .timepicker-dialog .timepicker-body .label button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0px;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .label button:hover {
+  color: #FFFFFF;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .label button.active {
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: rgba(255, 255, 255, 0.8);
+}
+.timepicker-container .timepicker-dialog .timepicker-body input[type=radio] {
+  display: none;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .hours {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0px;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .hours.show {
+  display: block;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .hours.hours-am {
+  width: 210px;
+  height: 210px;
+  z-index: 1002;
+  border-radius: 1000px;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .hours.hours-am .items .item label {
+  font-size: 14px;
+  font-weight: 600;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .hours.hours-pm {
+  width: 150px;
+  height: 150px;
+  z-index: 1003;
+  border-radius: 1000px;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .hours.hours-pm .items .item label {
+  font-size: 13px;
+  font-weight: 600;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .hours .items {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .hours .items .item {
+  position: absolute;
+  transform-origin: 50% 100%;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .hours .items .item label {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 1000px;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .hours .items .item label:hover {
+  background-color: var(--bs-blue-400);
+  color: #FFFFFF;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .hours .items .item input[type=radio]:checked + label {
+  background-color: var(--bs-blue-400);
+  color: #FFFFFF;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .minutes {
+  position: absolute;
+  z-index: 1004;
+  width: 210px;
+  height: 210px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0px;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 1000px;
+  display: none;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .minutes.show {
+  display: block;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .minutes .items {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .minutes .items .item {
+  position: absolute;
+  transform-origin: 50% 100%;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .minutes .items .item label {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 10px;
+  font-weight: 500;
+  border-radius: 1000px;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .minutes .items .item label:hover {
+  background-color: var(--bs-blue-400);
+  color: #FFFFFF;
+}
+.timepicker-container .timepicker-dialog .timepicker-body .minutes .items .item input[type=radio]:checked + label {
+  background-color: var(--bs-blue-400);
+  color: #FFFFFF;
+}
+.timepicker-container .timepicker-dialog .timepicker-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/*# sourceMappingURL=timepicker.css.map */

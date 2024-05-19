@@ -1,0 +1,196 @@
+
+.timepicker-container{
+    position: relative;
+    width: 100%;
+    height: 0px;
+    &.timepicker-bottom{
+        .timepicker-dialog{
+            bottom: 0px;
+            top: auto;
+        }
+    }
+    &.timepicker-right{
+        .timepicker-dialog{
+            right: 0px;
+            left: auto;
+        }
+    }
+    .timepicker-dialog{
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 240px;
+        height: 280px;
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        padding: 10px;
+        z-index: 100;
+        .timepicker-body{
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin-bottom: 10px;
+            &:before{
+                content: '';
+                width: 100%;
+                height: 100%;
+                background-color: var(--bs-blue-100);
+                position: absolute;
+                left: 0px;
+                right: 0px;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 1001;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 10000px;
+            }
+            .label{
+                position: absolute;
+                font-size: 18px;
+                font-weight: bold;
+                display: flex;
+                justify-content: center;
+                left: 0px;
+                right: 0px;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 1010;
+                width: 80px;
+                height: 80px;
+                border-radius: 1000px;
+                margin-left: auto;
+                margin-right: auto;
+                align-items: center;
+                background-color: var(--bs-blue-300);
+                button{
+                    border:  none;
+                    outline: none;
+                    background-color: transparent;
+                    font-size: 24px;
+                    font-weight: bold;
+                    padding: 0px;
+                }
+                button:hover{
+                    color: #FFFFFF;
+                }
+                button.active{
+                    -webkit-text-stroke-width: 0.5px;
+                    -webkit-text-stroke-color: #FFFFFFCC;
+                }
+            }
+            input[type='radio']
+            {
+                display: none;
+            }
+            .hours{
+                position: absolute;
+                margin-left: auto;
+                margin-right: auto;
+                left: 0px;
+                right: 0px;
+                top: 50%;
+                transform: translateY(-50%);
+                display: none;
+                &.show{
+                    display: block;
+                }
+                &.hours-am{
+                    width: 210px;
+                    height: 210px;
+                    z-index: 1002;
+                    border-radius: 1000px;
+                    .items .item label{
+                        font-size: 14px;
+                        font-weight: 600;
+                    }
+                }
+                &.hours-pm{
+                    width: 150px;
+                    height: 150px;
+                    z-index: 1003;
+                    border-radius: 1000px;
+                    .items .item label{
+                        font-size: 13px;
+                        font-weight: 600;
+                    }
+                }
+                .items{
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    .item{
+                        position:absolute;
+                        transform-origin: 50% 100%;
+                        label{
+                            cursor: pointer;
+                            width: 20px;
+                            height: 20px;
+                            text-align:center;
+                            line-height: 20px;
+                            border-radius:1000px;
+                            &:hover{
+                                background-color: var(--bs-blue-400);
+                                color:#FFFFFF;
+                            }
+                        }
+                        input[type='radio']:checked + label{
+                            background-color: var(--bs-blue-400);
+                            color:#FFFFFF;
+                        }
+                    }
+                }
+            }
+            .minutes{
+                position: absolute;
+                z-index: 1004;
+                width: 210px;
+                height: 210px;
+                margin-left: auto;
+                margin-right: auto;
+                left: 0px;
+                right: 0px;
+                top: 50%;
+                transform: translateY(-50%);
+                border-radius: 1000px;
+                display: none;
+                &.show{
+                    display: block;
+                }
+                .items{
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    .item{
+                        position:absolute;
+                        transform-origin: 50% 100%;
+                        label{
+                            cursor: pointer;
+                            width: 20px;
+                            height: 20px;
+                            text-align:center;
+                            line-height: 20px;
+                            font-size: 10px;
+                            font-weight: 500;
+                            border-radius:1000px;
+                            &:hover{
+                                background-color: var(--bs-blue-400);
+                                color:#FFFFFF;
+                            }
+                        }
+                        input[type='radio']:checked + label{
+                            background-color: var(--bs-blue-400);
+                            color:#FFFFFF;
+                        }
+                    }
+                }
+            }
+        }
+        .timepicker-footer{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    }
+}
