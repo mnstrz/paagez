@@ -4,6 +4,7 @@ Modular for laravel ^9 ^10
 -  spatie/laravel-permission
 -  silviolleite/laravelpwa
 -  biscolab/laravel-recaptcha
+-  php-open-source-saver/jwt-auth
 -  Boostrap 5.3
 -  JQuery
 
