@@ -56,6 +56,8 @@ class Modular
 
 	public $installed = false;
 
+	public $active = false;
+
 	public function __construct()
 	{
 		$this->getNameSpace();
@@ -76,6 +78,7 @@ class Modular
 		{
 			$this->installed = true;
 			$this->latest_version = $module->version;
+			$this->active = $module->is_active;
 		}
 	}
 
@@ -107,7 +110,7 @@ class Modular
 			$this->can_install = false;
 			$this->error_messages[] = __('paagez.module_name_required');
 		}
-		if(in_array($this->name,['admin','website','config','settings','users','user','role','permission','permissions','api']))
+		if(in_array($this->name,['admin','website','config','settings','users','user','role','permission','permissions','api','roles','app','update','install','setup','login','logout','sign','notifications','notification','rest','apperance','theme','display','dashboard','module','modules','email','mail','job','jobs']))
 		{
 			$this->can_install = false;
 			$this->error_messages[] = __('paagez.invalid_name');

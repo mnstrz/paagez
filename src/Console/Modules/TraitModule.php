@@ -34,7 +34,7 @@ trait TraitModule
 
     public $route_path = '';
 
-    public function initials($name,$regex='/^[A-Za-z0-9_-]+$/')
+    public function initials($name,$regex='/^[A-Za-z0-9_]+$/')
     {
         if(!$name)
         {
@@ -43,14 +43,19 @@ trait TraitModule
         }
     	if(!preg_match($regex, $name))
     	{
-    		$this->error('Module name only permitted alphabeth, numbers, strips, or underscore');
+    		$this->error('Module name only permitted alphabeth, numbers, or underscore');
     		return 1;
     	}
+        if(in_array($name,['admin','website','config','settings','users','user','role','permission','permissions','api','roles','app','update','install','setup','login','logout','sign','notifications','notification','rest','appearance','theme','display','dashboard','module','modules','email','mail','job','jobs']))
+        {
+            $this->error('Module names are not permitted');
+            return 1;
+        }
     	$this->module_name = \Str::snake($name);
-    	$title = str_replace("_"," ",$this->module_name);
+    	$title = str_replace("-"," ",strtolower($this->module_name));
     	$title = str_replace("_"," ",$title);
 
-    	$this->module_title = \Str::title($title);
+    	$this->module_title = \Str::snake($title);
     	$this->module_version = \Carbon\Carbon::now()->format('Ymdh001');
     	$this->module_route_prefix = \Str::slug($title,"-");
     	$this->module_route_name = \Str::slug($title,"_");
@@ -71,6 +76,11 @@ trait TraitModule
             $this->error('The value only permitted alphabeth, numbers, strips, or underscore');
             return 1;
         }
+        $this->studly_case = \Str::studly($name);
+
+        $this->snake_case = \Str::snake($name);
+
+        $this->camel_case = \Str::camel($name);
         if (preg_match('/[\/\\\\.]/', $name)) {
             $parts = preg_split('/[\/\\\\.]/', $name);
             $this->route_path = implode(".",$parts);
@@ -80,12 +90,9 @@ trait TraitModule
             $this->module_extra_path = "/".$path;
             $this->extra_namespace = "\\".$namespace;
             $name = $lastPart;
+        }else{
+            $this->route_path = $this->snake_case;
         }
-    	$this->studly_case = \Str::studly($name);
-
-    	$this->snake_case = \Str::snake($name);
-
-    	$this->camel_case = \Str::camel($name);
 
         $this->title_case = \Str::title(str_replace("_"," ",$this->snake_case));
     }

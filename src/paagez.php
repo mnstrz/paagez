@@ -79,6 +79,15 @@ return [
 	/**
 	 * 
 	 * @string
+	 * theme path
+	 * 
+	 * */
+
+	'default_layout' => 'layouts.admin',
+
+	/**
+	 * 
+	 * @string
 	 * boxed
 	 * 
 	 * */
@@ -116,6 +125,8 @@ return [
 
 		'user' => \Monsterz\Paagez\Models\User::class,
 
+		'roles' => \Monsterz\Paagez\Models\Roles::class,
+
 		'config' => \Monsterz\Paagez\Models\PzConfig::class,
 
 		'module' => \Monsterz\Paagez\Models\PzModule::class,
@@ -131,5 +142,19 @@ return [
 	 * google captcha
 	 * 
 	 * */
-	'gcaptcha' => false
+	'gcaptcha' => false,
+
+	/**
+	 * 
+	 * pwa
+	 * 
+	 * */
+	'pwa' => false,
+
+	/**
+	 * 
+	 * analytics
+	 * 
+	 * */
+	'analytics' => ''
 ];

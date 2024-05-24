@@ -596,6 +596,7 @@ label.error{
                 >a{
                     display: flex;
                     align-items: center;
+                    justify-content:center;
                     img{
                         height: 24px;
                         width: 24px;
@@ -756,6 +757,9 @@ label.error{
 .img-cover{
     object-fit:cover;
 }
+.img-contain{
+    object-fit:contain;
+}
 .navbar{
     color: $gray-700;
     .nav-item{
@@ -914,10 +918,58 @@ label.error{
             top: 10px;
         }
     }
+    .content{
+        padding: 10px;
+        margin-top: 50px;
+        height: calc(100vh - 70px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        &::-webkit-scrollbar {
+          width: 7px;
+        }
+        &::-webkit-scrollbar-track {
+          background: #f1f1f1; 
+        }
+        &::-webkit-scrollbar-thumb {
+          background: unquote($primary+'66'); 
+        }
+        &::-webkit-scrollbar-thumb:hover {
+          background: unquote($primary+'99');
+        }
+    }
 }
 .fs-sm{
     font-size: 12px !important;
 }
 .fs-xs{
     font-size: 10px !important;
+}
+.launcher{
+    background-color: #FFFFFF;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    line-height: 16px;
+    img{
+        object-fit:contain;
+        width: 64px;
+        height: 64px;
+    }
+    span{
+        margin-top: 5px;
+    }
+    &:hover{
+        background-color: lighten($primary,60);
+        i{
+            color: $primary;
+        }
+    }
 }

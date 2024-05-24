@@ -148,3 +148,15 @@ $(document).scroll(function(event){
    }
    lastScrollTop = content
 });
+
+$(document).ready(function(){
+  if($(window).width() < 991.98) {
+    $("nav.sidebar").addClass('close')
+  }
+})
+
+$(document).on('click','#toggle-navbar-menu',function(e)
+{
+  e.preventDefault()
+  $(".left-nav").toggleClass('show')
+})

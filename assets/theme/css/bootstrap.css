@@ -22904,6 +22904,7 @@ label.error {
 #admin .navbar > ul.left-nav > li > a {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 #admin .navbar > ul.left-nav > li > a img {
   height: 24px;
@@ -23046,6 +23047,10 @@ label.error {
 
 .img-cover {
   object-fit: cover;
+}
+
+.img-contain {
+  object-fit: contain;
 }
 
 .navbar {
@@ -23945,6 +23950,25 @@ label.error {
   left: 10px;
   top: 10px;
 }
+.floating-box .content {
+  padding: 10px;
+  margin-top: 50px;
+  height: calc(100vh - 70px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.floating-box .content::-webkit-scrollbar {
+  width: 7px;
+}
+.floating-box .content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.floating-box .content::-webkit-scrollbar-thumb {
+  background: #0027a866;
+}
+.floating-box .content::-webkit-scrollbar-thumb:hover {
+  background: #0027a899;
+}
 
 .fs-sm {
   font-size: 12px !important;
@@ -23952,6 +23976,36 @@ label.error {
 
 .fs-xs {
   font-size: 10px !important;
+}
+
+.launcher {
+  background-color: #FFFFFF;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  line-height: 16px;
+}
+.launcher img {
+  object-fit: contain;
+  width: 64px;
+  height: 64px;
+}
+.launcher span {
+  margin-top: 5px;
+}
+.launcher:hover {
+  background-color: #dbe3ff;
+}
+.launcher:hover i {
+  color: #0027a8;
 }
 
 @media (max-width: 991.98px) {
@@ -23978,6 +24032,34 @@ label.error {
   #admin:has(nav.sidebar.close) .navbar > ul.left-nav {
     margin-left: 2rem;
     transition: 1s;
+  }
+  #admin nav.navbar .nav.left-nav {
+    position: absolute;
+    top: 60px;
+    right: -300px;
+    margin: 0px !important;
+    padding: 1rem !important;
+    background-color: #FFFFFF;
+    width: 100vw;
+    max-width: 300px;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    align-items: flex-start !important;
+    justify-content: flex-end !important;
+    z-index: 1001 !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+  #admin nav.navbar .nav.left-nav.show {
+    right: 0px;
+    transition: right 1s;
+  }
+  #admin nav.navbar .nav.left-nav > li ul {
+    left: auto !important;
+    right: 0px !important;
+  }
+  #admin nav.navbar .nav.left-nav > li ul > li:hover:after {
+    left: 0px !important;
+    right: auto !important;
   }
 }
 

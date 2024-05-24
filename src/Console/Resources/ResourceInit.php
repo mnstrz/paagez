@@ -114,7 +114,7 @@ trait ResourceInit
     		$this->model_var = $this->model_var."_".$random;
     	}
 
-    	$this->route_name = config("paagez.route_prefix").".".$this->module_name.".".$this->model_var;
+    	$this->route_name = 'config("paagez.route_prefix")'.'.".'.$this->module_name.".".$this->model_var.'"';
 
     	$foldername = \Str::slug($name,"_");
     	if(file_exists($this->module_path."/resources/views/".$foldername."/index.blade.php") || file_exists($this->module_path."/resources/views/".$foldername."/form.blade.php") || file_exists($this->module_path."/resources/views/".$foldername."/show.blade.php"))
@@ -138,7 +138,7 @@ trait ResourceInit
 
     	$this->breadcrumb_path = $this->module_path."/Navigations/Breadcrumbs/".$this->breadcrumb_name.".php";
 
-    	$this->layout = config('paagez.theme')."::layouts.admin";
+    	$this->layout = 'config("paagez.theme")'.'."::'.config('paagez.default_layout').'"';
 	}
 
 	public function validateResource()

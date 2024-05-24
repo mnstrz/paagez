@@ -127,6 +127,8 @@ class CommandModuleInstall extends Command
             $this->line("\n<fg=yellow>module\\$this->module_name</> is not exists, please init first using <fg=yellow>php artisan paagez:module --module=$this->module_name --init</>\n");
             return 1;
         }
+        $this->call('optimize:clear');
+
         $module = new $classname;
         if(count($module->packages) > 0)
         {
@@ -155,6 +157,7 @@ class CommandModuleInstall extends Command
         $this->call('paagez:version-update',[
             '--module' => $module->name
         ]);
+        $this->call('optimize:clear');
         $this->info("<fg=yellow>module\\$module->name</> ..................................</> Installation success\n");
         return 1;
     }

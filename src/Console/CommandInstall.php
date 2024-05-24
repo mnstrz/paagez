@@ -25,7 +25,6 @@ class CommandInstall extends Command
         {
             return 0;
         }
-        $this->call('paagez:publish');
         $url = url(config('paagez.prefix'));
         $this->info("Installation success. use <fg=yellow>{$url}</> to continue installation\n");
     }

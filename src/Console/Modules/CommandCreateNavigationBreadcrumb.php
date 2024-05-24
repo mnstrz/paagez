@@ -75,10 +75,10 @@ class Breadcrumb extends ModuleBreadcrumb
 {
     public function register()
     {
-        // $this->add_breadcrumb(url("/'.config('paagez.prefix').'/'.$this->module_name.'"),[
+        // $this->add_breadcrumb(url("/".config("paagez.prefix")."/'.$this->module_name.'/index"),[
         //      url("/") => "<i class='."'".'fa fa-home'."'".'></i>",
-        //     url("/'.config('paagez.prefix').'/'.$this->module_name.'") => __("'.$this->module_title.'"),
-        //    url("/'.config('paagez.prefix').'/'.$this->module_name.'/create") => __("Create '.$this->module_title.'")
+        //     url("/".config("paagez.prefix")."/'.$this->module_name.'/index") => __("'.$this->module_title.'"),
+        //    url("/".config("paagez.prefix")."/'.$this->module_name.'/create") => __("Create '.$this->module_title.'")
         // ]);
     }
 }';

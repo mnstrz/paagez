@@ -22,6 +22,12 @@ class CommandPublish extends Command
     public function publishPackages()
     {
         $this->call('vendor:publish',['--provider' => \Spatie\Permission\PermissionServiceProvider::class]);
+        $this->call('vendor:publish',['--provider' => \LaravelPWA\Providers\LaravelPWAServiceProvider::class]);
+        $this->call('vendor:publish',['--provider' => \Biscolab\ReCaptcha\ReCaptchaServiceProvider::class]);
+        $this->call('vendor:publish',['--provider' => \PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider::class]);
         $this->call('vendor:publish',['--provider' => \Monsterz\Paagez\Providers\PaagezServiceProvider::class]);
+        $this->call('paagez:theme-assets');
+        $this->call('jwt:secret');
+        $this->call('notifications:table');
     }
 }

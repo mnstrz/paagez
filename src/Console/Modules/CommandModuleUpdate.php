@@ -129,6 +129,7 @@ class CommandModuleUpdate extends Command
             $this->line("\n<fg=yellow>module\\$this->module_name</> is not exists, please init first using <fg=yellow>php artisan paagez:module --module=$this->module_name --init</>\n");
             return 1;
         }
+        $this->call('optimize:clear');
         $module = new $classname;
         if(count($module->packages) > 0)
         {
@@ -158,6 +159,7 @@ class CommandModuleUpdate extends Command
             '--module' => $module->name
         ]);
         $this->info("<fg=yellow>module\\$module->module_name</> ..................................</> Updating success\n");
+        $this->call('optimize:clear');
         return 1;
     }
 }

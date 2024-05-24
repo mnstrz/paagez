@@ -12,7 +12,7 @@ trait ResourceForm
     		\File::makeDirectory($this->view_path, 0755, true);
     	}
     	$this->form_fields();
-    	$fileContent = '@extends("'.$this->layout.'")
+    	$fileContent = '@extends('.$this->layout.')
 
 @push("meta")
 
@@ -30,7 +30,7 @@ trait ResourceForm
             <div class="card p-3 shadow w-100 position-relative border-0">
                 <h4 class="text-primary fw-bold">{{ (!$data->'.$this->primary_key.') ? __("Create '.$this->title.'") : __("Edit '.$this->title.'") }}</h4>
                 <x-alert-floating/>
-                <form method="POST" action="{{ (!$data->'.$this->primary_key.') ? route("'.$this->route_name.'.store") : route("'.$this->route_name.'.update",[$data->'.$this->primary_key.']) }}" class="py-3">
+                <form method="POST" action="{{ (!$data->'.$this->primary_key.') ? route('.$this->route_name.'.".store") : route('.$this->route_name.'.".update",[$data->'.$this->primary_key.']) }}" class="py-3">
                     @csrf
                     @if($data->'.$this->primary_key.')
                     <input type="hidden" name="_method" value="PUT">

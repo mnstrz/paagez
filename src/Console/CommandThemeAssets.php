@@ -32,11 +32,11 @@ class CommandThemeAssets extends Command
     {
         try {
             $link = public_path('theme');
-            $target = $this->packagePath('assets/theme');
+            $target = $this->packagePath('../assets/theme');
             $this->laravel->make('files')->link($target, $link);
 
             $link = public_path('paagez');
-            $target = $this->packagePath('assets/paagez');
+            $target = $this->packagePath('../assets/paagez');
             $this->laravel->make('files')->link($target, $link);
             $this->info("Successfuly create link themes assets");
             return 0;
@@ -55,11 +55,11 @@ class CommandThemeAssets extends Command
                 return 1;
             }
             $target = $this->module_path."/assets";
-            if(!file_exists(public_path('module')))
+            if(!file_exists(public_path('modules')))
             {
-                \File::makeDirectory(public_path('module'),0775,true);
+                \File::makeDirectory(public_path('modules'),0775,true);
             }
-            $link = public_path('module/'.$this->module_name);
+            $link = public_path('modules/'.$this->module_name);
             $this->laravel->make('files')->link($target, $link);
             $this->line("\nSuccessfuly create link from <fg=green>'$target'</> to <fg=green>'$link'</>\n");
             return 0;

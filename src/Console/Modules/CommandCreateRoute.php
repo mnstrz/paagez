@@ -153,9 +153,19 @@ class CommandCreateRoute extends Command
                 $filePath = $this->module_path . "/routes/{$route}.php";
                 if(!file_exists($filePath))
                 {
-                    $fileContent = '<?php
+                    if($this->option('api'))
+                    {
+                        $fileContent = '<?php
 
-// Route::resource("/",'.$this->namespace.'\HomeController::class)->parameters([""=>"'.$this->module_name.'"]);;';
+Route::prefix("'.$this->module_name.'")->as("'.$this->module_name.'.")->group(function()
+{
+    // Route::resource("/",'.$this->namespace.'\HomeController::class)->parameters([""=>"'.$this->module_name.'"]);
+});';
+                    }else{
+                        $fileContent = '<?php
+
+// Route::resource("/",'.$this->namespace.'\HomeController::class)->parameters([""=>"'.$this->module_name.'"]);';
+                    }
                     \File::put($filePath, $fileContent);
                     $this->info("$filePath ........................................... Success\n");
                 }else{

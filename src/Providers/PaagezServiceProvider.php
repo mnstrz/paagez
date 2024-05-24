@@ -41,7 +41,9 @@ class PaagezServiceProvider extends BaseServiceProvider
         \Monsterz\Paagez\Console\Modules\CommandCreateNavigationTab::class,
         \Monsterz\Paagez\Console\Modules\CommandCreateRoute::class,
         \Monsterz\Paagez\Console\Modules\CommandCreateView::class,
+        \Monsterz\Paagez\Console\Modules\CommandCreateNotification::class,
         \Monsterz\Paagez\Console\Resources\CommandCreateResource::class,
+        \Monsterz\Paagez\Console\Widgets\CommandCreateWidget::class,
     ];
 
     public function register()
@@ -69,6 +71,8 @@ class PaagezServiceProvider extends BaseServiceProvider
         {
             $this->registerComponents();
             $this->registerModules();
+            $this->registerRoutes();
+            $this->registerViews();
         }
         if(!app()->runningInConsole()){
             if(config('paagez.base_theme') == 'bootstrap')
@@ -81,13 +85,28 @@ class PaagezServiceProvider extends BaseServiceProvider
     protected function registerConfigurations()
     {
         $this->mergeConfigFrom($this->packagePath('paagez.php'), 'paagez');
+    }
 
+    protected function registerRoutes()
+    {
         \Route::middleware('web')
             ->prefix(config('paagez.prefix'))
-            ->as('paagez.')
-            ->group($this->packagePath('routes/web.php'));
+            ->as(config('paagez.route_prefix').'.')
+            ->group($this->packagePath('routes/admin.php'));
+        \Route::prefix('api')
+            ->as('api.')
+            ->group($this->packagePath('routes/api.php'));
+    }
 
-        \View::addNamespace('paagez',$this->packagePath('resources/views'),'paagez');
+    protected function registerViews()
+    {
+        $views = [];
+        if(file_exists(base_path('resources/views/vendor/paagez')))
+        {
+            $views[] = base_path('resources/views/vendor/paagez');
+        }
+        $views[] = $this->packagePath('resources/views');
+        \View::addNamespace('paagez',$views,'paagez');
     }
 
     protected function packagePath($path = '')
@@ -110,14 +129,17 @@ class PaagezServiceProvider extends BaseServiceProvider
         \Blade::component(config('paagez.theme').'::components.modal','modal');
         \Blade::component(config('paagez.theme').'::components.box-left','box-left');
         \Blade::component(config('paagez.theme').'::components.box-right','box-right');
-        \Blade::component('navbar',\Monsterz\Paagez\View\Navbar::class);
+        \Blade::component('admin-tab',\Monsterz\Paagez\View\AdminTab::class);
         \Blade::component('admin-navbar',\Monsterz\Paagez\View\AdminNavbar::class);
         \Blade::component('admin-sidebar',\Monsterz\Paagez\View\AdminSidebar::class);
         \Blade::component('admin-breadcrumb',\Monsterz\Paagez\View\AdminBreadcrumb::class);
-        \Blade::component('admin-tab',\Monsterz\Paagez\View\AdminTab::class);
+        \Blade::component('admin-footer',\Monsterz\Paagez\View\AdminFooter::class);
+        \Blade::component('navbar',\Monsterz\Paagez\View\Navbar::class);
         \Blade::component('widget-left',\Monsterz\Paagez\View\WidgetLeft::class);
         \Blade::component('widget-right',\Monsterz\Paagez\View\WidgetRight::class);
-        \Blade::component('admin-footer',\Monsterz\Paagez\View\AdminFooter::class);
+        \Blade::component('launcher',\Monsterz\Paagez\View\Launcher::class);
+        \Blade::component('dashboard',\Monsterz\Paagez\View\Dashboard::class);
+        \Blade::component('widget-dashboard',\Monsterz\Paagez\View\WidgetDashboard::class);
     }
 
     protected function registerMiddleware()
@@ -131,15 +153,29 @@ class PaagezServiceProvider extends BaseServiceProvider
 
     protected function registerModules()
     {
-        $app_logo = config('paagez.models.config')::where('name','app_name')->first();
-        if($app_logo)
+        $app = config('paagez.models.config')::all();
+        foreach($app as $item)
         {
-            \Config::set('paagez.app_name',$app_logo->value);
-        }
-        $app_logo = config('paagez.models.config')::where('name','app_logo')->first();
-        if($app_logo)
-        {
-            \Config::set('paagez.app_logo',\Storage::url($app_logo->value));
+            if($item->name == 'app_logo')
+            {
+                \Config::set('paagez.'.$item->name,\Storage::url($item->value));
+            }else{
+                \Config::set('paagez.'.$item->name,$item->value);
+            }
+            if(strpos($item->name,"mail_") === 0){
+                if($item->name == 'mail_from_address')
+                {
+                    \Config::set('mail.from.address',$item->value);
+                }elseif($item->name == 'mail_from_name')
+                {
+                    \Config::set('mail.from.name',$item->value);
+                }elseif($item->name == 'mail_mailer'){
+                    \Config::set('mail.default',$item->value);
+                }else{
+                    $name = str_replace("mail_","",$item->name);
+                    \Config::set('mail.mailers.'.config('mail.default').".$name",$item->value);
+                }
+            }
         }
         $updated_at = config('paagez.models.module')::orderBy('updated_at','desc')->first();
         if($updated_at)
@@ -147,6 +183,8 @@ class PaagezServiceProvider extends BaseServiceProvider
             \Config::set('paagez.cache',\Carbon\Carbon::parse($updated_at->updated_at)->format('Ymdhis'));
         }
         \Config::set('auth.providers.users.model',config('paagez.models.user'));
+        \Config::set('auth.guards.api.driver','jwt');
+        \Config::set('auth.guards.api.provider','users');
         $modules = config('paagez.models.module')::where('is_active',1)->get();
         foreach ($modules as $key => $module) {
             $classname = $module->namespace."\\ModuleServiceProvider";

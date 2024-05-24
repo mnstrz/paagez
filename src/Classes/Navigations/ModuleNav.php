@@ -25,6 +25,7 @@ class ModuleNav
 		$url = (isset($nav['url']) && $nav['url']) ? $nav['url'] : null;
 		$parent = (isset($nav['parent']) && $nav['parent']) ? $nav['parent'] : null;
 		$order = (isset($nav['order']) && $nav['order']) ? (int) $nav['order'] : 99999999;
+		$roles = (isset($nav['roles']) && $nav['roles'] && is_array($nav['roles'])) ? $nav['roles'] : [];
 		if($name && ($label || $icon || $image) && $url)
 		{
 			$this->navs[] = [
@@ -35,6 +36,7 @@ class ModuleNav
 				'url' => $url,
 				'icon' => $icon,
 				'image' => $image,
+				'roles' => $roles,
 			];
 		}
 	}

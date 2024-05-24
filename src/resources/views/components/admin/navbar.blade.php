@@ -13,7 +13,9 @@
 					@else
 					<i class="fa-solid fa-grid-2"></i> 
 					@endif
+					@if($nav['label'])
 					<span class="text-primary">{!!$nav['label']!!}</span>
+					@endif
 				</a>
 				<ul>
 				@foreach($nav['child'] as $child)
@@ -32,7 +34,9 @@
 					@if(isset($nav['image']) && $nav['image'])
 						<img src="{{$nav['image']}}">
 					@endif
+					@if($nav['label'])
 					<span class="text-primary">{!!$nav['label']!!}</span>
+					@endif
 				</a>
 			</li>
 			@endif
@@ -40,6 +44,9 @@
 	</ul>
 	@endif
 	<ul class="nav ms-auto">
+		<li class="d-block d-lg-none">
+			<a href="#" id="toggle-navbar-menu"><i class="fa-solid fa-grid text-primary"></i></a>
+		</li>
 		@if($update)
 		<li>
 			<a href="{{ route(config('paagez.route_prefix').".update") }}" class="btn btn-pill btn-outline-primary link">{{__('Update')}} <span class="fa-fade bg-success"></span></a>
@@ -56,9 +63,9 @@
 				@if(count($notifications) > 0)
 					@foreach($notifications as $notification)
 					<li>
-						<a href="{{$notification->url}}">
-							<div>{{$notification->name}}</div>
-							<small class="text-muted fs-xs">{{$notification->datetime}}</small>
+						<a href="{{ url($notification->url) }}">
+							<small>{{$notification->subject}}</small> <br>
+							<small class="text-muted fs-xs">{{$notification->date}}</small>
 						</a>
 					</li>
 					@endforeach
@@ -68,7 +75,7 @@
 				</li>
 				@endif
 				<li class="w-100 text-center">
-					<a href="#" class="fs-sm text-primary">{{ __('paagez.all_notif') }}</a>
+					<a href="{{ route(config('paagez.route_prefix').".notifications.index") }}" class="fs-sm text-primary">{{ __('paagez.all_notif') }}</a>
 				</li>
 			</ul>
 		</li>

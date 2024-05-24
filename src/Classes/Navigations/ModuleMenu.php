@@ -25,6 +25,7 @@ class ModuleMenu
 		$url = (isset($menu['url']) && $menu['url']) ? $menu['url'] : null;
 		$parent = (isset($menu['parent']) && $menu['parent']) ? $menu['parent'] : null;
 		$order = (isset($menu['order']) && $menu['order']) ? (int) $menu['order'] : 99999999;
+		$roles = (isset($menu['roles']) && $menu['roles'] && is_array($menu['roles'])) ? $menu['roles'] : [];
 		if($name && $label && $url)
 		{
 			$this->menu[] = [
@@ -35,6 +36,7 @@ class ModuleMenu
 				'url' => $url,
 				'icon' => $icon,
 				'image' => $image,
+				'roles' => $roles
 			];
 		}
 	}

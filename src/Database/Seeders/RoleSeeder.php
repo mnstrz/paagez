@@ -20,11 +20,7 @@ class RoleSeeder extends Seeder
                 'guard_name' => 'web'
             ],
             [
-                'name' => 'author',
-                'guard_name' => 'web'
-            ],
-            [
-                'name' => 'user',
+                'name' => 'user_api',
                 'guard_name' => 'api'
             ]
         ];

@@ -26,24 +26,24 @@ class '.$this->breadcrumb_name.' extends ModuleBreadcrumbs
 	{
 		$data = \Route::current()->parameter("'.$this->model_var.'");
 		$id = ($data) ? $data->'.$this->primary_key.' : 1;
-		$this->add_breadcrumb(route("'.$this->route_name.'.index"),[
+		$this->add_breadcrumb(route('.$this->route_name.'.".index"),[
             route("paagez.index") => "<i class='."'".'fa fa-home'."'".'></i>",
-            route("'.$this->route_name.'.index") => __("'.$this->title.'")
+            route('.$this->route_name.'.".index") => __("'.$this->title.'")
 		]);
-		$this->add_breadcrumb(route("'.$this->route_name.'.create"),[
+		$this->add_breadcrumb(route('.$this->route_name.'.".create"),[
             route("paagez.index") => "<i class='."'".'fa fa-home'."'".'></i>",
-            route("'.$this->route_name.'.index") => __("'.$this->title.'"),
-            route("'.$this->route_name.'.create") => __("Create '.$this->title.'")
+            route('.$this->route_name.'.".index") => __("'.$this->title.'"),
+            route('.$this->route_name.'.".create") => __("Create '.$this->title.'")
 		]);
-		$this->add_breadcrumb(route("'.$this->route_name.'.edit",[$id]),[
+		$this->add_breadcrumb(route('.$this->route_name.'.".edit",[$id]),[
             route("paagez.index") => "<i class='."'".'fa fa-home'."'".'></i>",
-            route("'.$this->route_name.'.index") => __("'.$this->title.'"),
-            route("'.$this->route_name.'.edit",[$id]) => __("Edit '.$this->title.'")
+            route('.$this->route_name.'.".index") => __("'.$this->title.'"),
+            route('.$this->route_name.'.".edit",[$id]) => __("Edit '.$this->title.'")
 		]);
-		$this->add_breadcrumb(route("'.$this->route_name.'.show",[$id]),[
+		$this->add_breadcrumb(route('.$this->route_name.'.".show",[$id]),[
             route("paagez.index") => "<i class='."'".'fa fa-home'."'".'></i>",
-            route("'.$this->route_name.'.index") => __("'.$this->title.'"),
-            route("'.$this->route_name.'.show",[$id]) => __("Show '.$this->title.'")
+            route('.$this->route_name.'.".index") => __("'.$this->title.'"),
+            route('.$this->route_name.'.".show",[$id]) => __("Show '.$this->title.'")
 		]);
 	}
 }';

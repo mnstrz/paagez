@@ -15,13 +15,22 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        $roles = config('paagez.models.roles')::where('guard_name','web')->get()->pluck('name')->toArray();
         if(!\Auth::user())
         {
             return redirect()->route('paagez.login');
         }
-        if(!\Auth::user()->hasRole(['admin','author']))
+        if(!\Auth::user()->hasRole($roles))
         {
             return redirect()->route('paagez.login');
+        }
+        if($request->query('notification'))
+        {
+            $notification_id = $request->query('notification');
+            $notification = \Auth::user()->notifications()->find($notification_id);
+            if ($notification && $notification->unread()) {
+                $notification->markAsRead();
+            }
         }
         return $next($request);
     }

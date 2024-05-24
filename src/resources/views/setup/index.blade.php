@@ -17,16 +17,16 @@
 					@csrf
 					<div class="mb-3 row">
 						<label class="col-md-3" for="app_name">{{__('paagez.app_name')}} <span class="text-danger">*</span></label>
-						<label class="col-md-9">
+						<div class="col-md-9">
 						  <input type="text" class="form-control @error('app_name') is-invalid @enderror" id="app_name" name="app_name" value="{{ (old('app_name')) ? old('app_name') : config('paagez.app_name') }}" required>
 						  @error('app_name')
 							<small class="invalid-feedback">{{ $message }}</small>
 						  @enderror
-						</label>
+						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-md-3" for="app_name">{{__('paagez.app_logo')}}</label>
-						<label class="col-md-9">
+						<div class="col-md-9">
 						  @if(config('paagez.app_logo'))
 						  <img src="{{config('paagez.app_logo')}}" height="50px">
 						  @endif
@@ -34,40 +34,40 @@
 						  @error('app_logo')
 							<small class="invalid-feedback">{{ $message }}</small>
 						  @enderror
-						</label>
+						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-md-3" for="app_name">{{__('Username')}} <span class="text-danger">*</span></label>
-						<label class="col-md-9">
+						<div class="col-md-9">
 						  <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ (old('name')) ? old('name') : '' }}" required>
 						  @error('name')
 							<small class="invalid-feedback">{{ $message }}</small>
 						  @enderror
-						</label>
+						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-md-3" for="app_name">{{__('Email')}} <span class="text-danger">*</span></label>
-						<label class="col-md-9">
+						<div class="col-md-9">
 						  <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ (old('email')) ? old('email') : '' }}" required>
 						  @error('email')
 							<small class="invalid-feedback">{{ $message }}</small>
 						  @enderror
-						</label>
+						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-md-3" for="app_name">{{__('Password')}} <span class="text-danger">*</span></label>
-						<label class="col-md-9">
+						<div class="col-md-9">
 						  <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
 						  @error('password')
 							<small class="invalid-feedback">{{ $message }}</small>
 						  @enderror
-						</label>
+						</div>
 					</div>
 					<div class="mb-3 row">
 						<label class="col-md-3" for="app_name">{{__('Repeat password')}} <span class="text-danger">*</span></label>
-						<label class="col-md-9">
+						<div class="col-md-9">
 						  <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" required>
-						</label>
+						</div>
 					</div>
 					<div class="mb-3">
 						<span class="text-danger">*)</span> <small>{{__('Required')}}</small>

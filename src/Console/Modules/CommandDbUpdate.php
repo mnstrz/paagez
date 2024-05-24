@@ -48,20 +48,23 @@ class CommandDbUpdate extends Command
     {
         $this->line("\nUpdating database for <fg=yellow>module\\$this->module_name</>...\n");
         try {
-
-            $this->call('clear');
-            $this->call('cache:clear');
-
+            if(!app()->runningInConsole())
+            {
+                $this->call("optimize:clear");
+                $this->call("clear");
+                $this->call("config:clear");
+                $this->call("config:cache");
+            }
             $this->line("\nUpdating database stucture for <fg=yellow>module\\$this->module_name</>...\n");
-            $path = base_path($this->module_path."/database/migrations");
+            $path = (app()->runningInConsole()) ? 'app/Modules/'.$this->module_name.'/database/migrations' : $this->module_path."/database/migrations";
             if(!file_exists($path))
             {
                 $this->comment("<fg=yellow>module\\$this->module_name</> migration not found\n");
                 return 1;
-            }
-            
+            }            
             $this->call('migrate',[
-                '--path' => $this->module_path."/database/migrations"
+                '--path' => 'app/Modules/'.$this->module_name.'/database/migrations',
+                '--force' => 1
             ]);
 
             $class = $this->namespace."\\Module";

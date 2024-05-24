@@ -16,20 +16,23 @@ class AdminSidebar extends Component
 
     public function getMenu()
     {
+        $roles = \DB::table('roles')->where('guard_name','web')->get()->pluck("name")->toArray();
+
         $menus_first = [
             [
                 'order' => 0,
                 'name' => 'dashboard',
                 'icon' => 'fa-solid fa-grid-2',
                 'label' => __('Dashboard'),
-                'url' => url(config('paagez.prefix'))
+                'url' => url(config('paagez.prefix')),
+                'roles' => $roles
             ]
         ];
         foreach($menus_first as $menu)
         {
             $this->menus[] = $menu;
         }
-        $modules = config('paagez.models.module')::all();
+        $modules = config('paagez.models.module')::where('is_active',1)->get();
         foreach ($modules as $key => $module) {
             $classname = $module->namespace."\\Navigations\\Menu";
             if(file_exists(base_path($classname.".php")))
@@ -39,7 +42,10 @@ class AdminSidebar extends Component
                     $menu = new $classname;
                     foreach($menu->menu as $item)
                     {
-                        $this->menus[] = $item;
+                        if(\Auth::user()->hasRole($item['roles']))
+                        {
+                            $this->menus[] = $item;
+                        }
                     }
                 }
             }
@@ -47,34 +53,11 @@ class AdminSidebar extends Component
         $menus_last = [
             [
                 'order' => 9999999999,
-                'name' => 'config',
-                'icon' => 'fa-solid fa-wrench',
-                'label' => __('Configuration'),
-                'url' => '#',
-            ],
-            [
-                'parent' => 'config',
-                'name' => 'user',
-                'label' => __('Users'),
-                'url' => url(config('paagez.prefix')."/user"),
-            ],
-            [
-                'parent' => 'config',
-                'name' => 'role',
-                'label' => __('Roles'),
-                'url' => url(config('paagez.prefix')."/roles"),
-            ],
-            [
-                'parent' => 'config',
-                'name' => 'website',
-                'label' => __('Website'),
-                'url' => url(config('paagez.prefix')."/website"),
-            ],
-            [
-                'parent' => 'config',
-                'name' => 'modules',
-                'label' => __('Modules'),
-                'url' => url(config('paagez.prefix')."/modules"),
+                'name' => 'app-settings',
+                'icon' => 'fa-solid fa-gear',
+                'label' => __('paagez.app_configuration'),
+                'url' => route(config('paagez.route_prefix').".app.config"),
+                'roles' => ['admin']
             ]
         ];
         foreach($menus_last as $menu)
@@ -91,6 +74,7 @@ class AdminSidebar extends Component
                     })->sortBy('order')->map(function($item)
                     {
                         $item['active'] = (url()->current() == $item['url'] || "/".request()->path == $item['url']) ? true : false;
+                        $item['roles'] = implode("|",$item['roles']);
                         return $item;
                     });
         $this->menus = \collect($this->menus)->filter(function ($item) {
@@ -108,6 +92,7 @@ class AdminSidebar extends Component
                             $active = true;
                         }
                         $item['active'] = $active;
+                        $item['roles'] = implode("|",$item['roles']);
                         return $item;
                     })->toArray();
     }

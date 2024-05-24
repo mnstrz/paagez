@@ -62,6 +62,11 @@ class CommandCreateNavigationNav extends Command
                 return 1;
             }
 
+            $roles = '';
+            $roles = \DB::table('roles')->where('guard_name','web')->get()->pluck("name")->toArray();
+            $roles = implode('","',$roles);
+            $roles = '["'.$roles.'"]';
+
         $fileContent = '<?php
 
 namespace '.$this->namespace.'\Navigations;
@@ -77,21 +82,24 @@ class Nav extends ModuleNav
             "name" => "'.$this->module_name.'",
             "icon" => "",
             "image" => "/theme/images/logo.jpg",
-            "url" => "#"
+            "url" => "#",
+            "roles" => '."$roles".'
         ]);
         $this->add_nav([
             "parent" => "'.$this->module_name.'",
             "order" => 1,
             "name" => "create_roles",
             "label" => __("Create New '.$this->module_title.'"),
-            "url" => "#"
+            "url" => url("/".config("paagez.prefix")."/'.$this->module_name.'/create"),
+            "roles" => '."$roles".'
         ]);
         $this->add_nav([
             "parent" => "'.$this->module_name.'",
             "order" => 2,
             "name" => "list_of_roles",
             "label" => __("Lists of '.$this->module_title.'"),
-            "url" => "#"
+            "url" => url("/".config("paagez.prefix")."/'.$this->module_name.'/index"),
+            "roles" => '."$roles".'
         ]);
     }
 }';

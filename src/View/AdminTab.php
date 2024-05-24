@@ -18,7 +18,7 @@ class AdminTab extends Component
 
     protected function getTabs()
     {
-        $modules = config('paagez.models.module')::all();
+        $modules = config('paagez.models.module')::where('is_active',1)->get();
         foreach ($modules as $key => $module) {
             $classname = $module->namespace."\\Navigations\\Tab";
             if(file_exists(base_path($classname.".php")))

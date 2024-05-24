@@ -1,7 +1,9 @@
 # Paagez Modular
 
-Modular for laravel
+Modular for laravel ^9 ^10
 -  spatie/laravel-permission
+-  silviolleite/laravelpwa
+-  biscolab/laravel-recaptcha
 -  Boostrap 5.3
 -  JQuery
 
@@ -9,7 +11,18 @@ Modular for laravel
 
 `composer require monsterz/paagez`
 
-provider `Monsterz\Paagez\Providers\PaagezServiceProvider::class` add to `config\app.php`
+```
+'providers' => [
+    ...
+    Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
+    Monsterz\Paagez\Providers\PaagezServiceProvider::class
+];
+
+'aliases' => [
+    ...
+    'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
+];
+```
 
 run `php artisan paagez:publish`
 

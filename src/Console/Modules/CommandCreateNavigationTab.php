@@ -74,9 +74,9 @@ class Tab extends ModuleTab
     public function register()
     {
         $this->add_tab_group("tab-'.$this->module_name.'",[
-            url("/'.config('paagez.prefix').'/'.$this->module_name.'/index") => __("'.$this->module_title.'"),
-            url("/'.config('paagez.prefix').'/'.$this->module_name.'/create") => __("Create '.$this->module_title.'"),
-            url("/'.config('paagez.prefix').'/'.$this->module_name.'/edit",1) => __("Edit '.$this->module_title.'")
+            url("/".config("paagez.prefix")."/'.$this->module_name.'/index") => __("'.$this->module_title.'"),
+            url("/".config("paagez.prefix")."/'.$this->module_name.'/create") => __("Create '.$this->module_title.'"),
+            url("/".config("paagez.prefix")."/'.$this->module_name.'/edit",1) => __("Edit '.$this->module_title.'")
         ]);
     }
 }';

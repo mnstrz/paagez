@@ -80,13 +80,15 @@ class Module extends Modular
 
     public $route_name = "'.$this->module_route_name.'";
 
+    public $logo = "/modules/'.$this->module_name.'/images/logo.png";
+
     public $version = '.$this->module_version.';
 
     public function update()
     {
         if($this->latest_version < '.$this->module_version.')
         {
-           // $this->seeders[] = \App\Modules\Roles\database\seeders\FooSeeder::class;
+           // $this->seeders[] = \App\Modules\\'.$this->module_name.'\\database\seeders\FooSeeder::class;
            // $this->packages[] = [
            //   ["foo/bar"=>"*"]
            //   ["foo/bar"=>"*"]

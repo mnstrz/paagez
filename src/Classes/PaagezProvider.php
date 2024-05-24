@@ -75,7 +75,7 @@ class PaagezProvider extends ServiceProvider{
 
 		if(file_exists($this->path."routes/api.php"))
 		{
-	        \Route::middleware('api')->prefix('api/'.$module->route_prefix)->as($module->route_name.".api.")->group(function () {
+	        \Route::middleware('auth:api')->prefix('api/')->as("api.")->group(function () {
 	        	$this->loadRoutesFrom($this->path."routes/api.php");
 	        });
 		}

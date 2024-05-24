@@ -27,7 +27,7 @@ class '.$this->controller_name.' extends Controller {
 		$datas = '.$this->model_name.'::query();
 		'.$this->filter_query().'
 		$datas = $datas->paginate(10);
-		return view("student::student.index",compact("datas"));
+		return view("'.$this->view_name.'.index",compact("datas"));
 	}
 
 	public function create()
@@ -41,7 +41,7 @@ class '.$this->controller_name.' extends Controller {
 		'.$this->model_name.'::create([
 			'.$this->insert_and_update().'
 		]);
-        return redirect()->route("'.$this->route_name.'.index")->with(["success" => __("Successfully create new data")]);
+        return redirect()->route('.$this->route_name.'.".index")->with(["success" => __("Successfully create new data")]);
 	}
 
 	public function show('.$this->model_name.' $'.$this->model_var.')
@@ -61,13 +61,13 @@ class '.$this->controller_name.' extends Controller {
 		$'.$this->model_var.'->update([
 			'.$this->insert_and_update().'
 		]);
-        return redirect()->route("'.$this->route_name.'.index")->with(["success" => __("Successfully edited data")]);
+        return redirect()->route('.$this->route_name.'.".index")->with(["success" => __("Successfully edited data")]);
 	}
 
 	public function destroy('.$this->model_name.' $'.$this->model_var.')
 	{
 		$'.$this->model_var.'->delete();
-        return redirect()->route("'.$this->route_name.'.index")->with(["success" => __("Successfully deleted data")]);
+        return redirect()->route('.$this->route_name.'.".index")->with(["success" => __("Successfully deleted data")]);
 	}
 }';
 		\File::put($this->controller_path, $fileContent);
@@ -79,12 +79,12 @@ class '.$this->controller_name.' extends Controller {
 		foreach ($this->table as $key => $column) {
 			if($column->type == 'text' || $column->type == 'textarea')
 			{
-				$scripts .= 'if(request()->name)
+				$scripts .= 'if(request()->'.$column->field.')
 		{
 			$datas->where("'.$column->field.'","like","%".request()->'.$column->field.'."%");
 		}';
 			}else{
-				$scripts .= 'if(request()->dob)
+				$scripts .= 'if(request()->'.$column->field.')
 		{
 			$datas->where("'.$column->field.'",request()->'.$column->field.');
 		}';

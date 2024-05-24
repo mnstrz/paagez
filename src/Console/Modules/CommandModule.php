@@ -25,12 +25,21 @@ class CommandModule extends Command
             $this->call('paagez:install-module',['--all' => 1]);
             return 0;
         }
+        if($this->option('module') && $this->option('install'))
+        {
+            $this->call('paagez:install-module',['--module' => $this->option('module')]);
+            return 0;
+        }
         if(!$this->option('module') && $this->option('update'))
         {
             $this->call('paagez:update-module',['--all' => 1]);
             return 0;
         }
-        dd(1);
+        if($this->option('module') && $this->option('update'))
+        {
+            $this->call('paagez:update-module',['--module' => $this->option('module')]);
+            return 0;
+        }
         if(!$this->option('module'))
         {
             $this->line("-----------------------------------\n");

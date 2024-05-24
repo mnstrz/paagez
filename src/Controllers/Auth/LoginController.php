@@ -14,7 +14,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->redirectTo = '/'.config('paagez.prefix');
+
     }
 
     public function index()
@@ -24,6 +24,12 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        if(config('paagez.gcaptcha')){
+            $this->validate($request,[
+                'g-recaptcha-response' => 'recaptcha',
+            ]);
+        }
+        $roles = config('paagez.models.roles')::where('guard_name','web')->get()->pluck("name")->toArray();
         $this->checkTooManyFailedAttempts();
         $this->validate($request,[
             'email' => 'required|email|exists:users,email',
@@ -35,8 +41,12 @@ class LoginController extends Controller
             'password' => $request->password
         ]))
         {
+            if($user->hasRole($roles))
+            {
+                $this->redirectTo = '/'.config('paagez.prefix');
+            }
             \Auth::login($user);
-            return redirect($this->redirectTo);
+            return redirect($this->redirectTo)->with(['success' => __('paagez.welcome_back',['name'=>$user->name])]);
         }
         RateLimiter::hit($this->throttleKey(), $seconds = 60);
         return redirect()->route('login')->withErrors([

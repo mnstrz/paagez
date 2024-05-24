@@ -8,9 +8,9 @@
 	@stack('meta')
 	@stack('css')
 	<link rel="stylesheet" type="text/css" rel="stylesheet" media="all" href="/theme/css/bootstrap.css?cache={{ config('paagez.cache') }}">
-    <link rel="stylesheet" type="text/css" rel="stylesheet" media="all" href="/theme/plugins/fontawesome/all.css"/>
-    <link rel="stylesheet" type="text/css" rel="stylesheet" media="all" href="/theme/plugins/animate/animate.css"/>
-    <link rel="stylesheet" type="text/css" rel="stylesheet" media="all" href="/theme/plugins/spinkit/spinkit.min.css"/>
+    <link rel="stylesheet" type="text/css" rel="stylesheet" media="all" href="/paagez/plugins/fontawesome/all.css"/>
+    <link rel="stylesheet" type="text/css" rel="stylesheet" media="all" href="/paagez/plugins/animate/animate.css"/>
+    <link rel="stylesheet" type="text/css" rel="stylesheet" media="all" href="/paagez/plugins/spinkit/spinkit.min.css"/>
 	<meta property="og:locale" content="{{ \App::getLocale() }}" />
 	@stack('styles')
 </head>
@@ -20,6 +20,8 @@
 		<div class="main-content">
 			<x-admin-breadcrumb/>
 			<x-admin-tab/>
+			<x-widget-left/>
+			<x-widget-right/>
 			@yield('contents')
 			@if(config('paagez.footer_mode') == 'full')
 			<x-admin-footer/>
@@ -30,8 +32,8 @@
 	<script src="/theme/js/moment.min.js"></script>
 	<script src="/theme/js/jquery.min.js"></script>
 	<script src="/theme/js/bootstrap.bundle.min.js" defer></script>
-	<script src="/theme/plugins/sweetalert2/sweetalert2.js"></script>
-	<script src="/theme/plugins/alert/alert.js"></script>
+	<script src="/paagez/plugins/sweetalert2/sweetalert2.js"></script>
+	<script src="/paagez/plugins/alert/alert.js"></script>
 	@stack('js')
 	<script type="text/javascript">
 		$.ajaxSetup({

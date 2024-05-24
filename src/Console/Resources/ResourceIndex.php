@@ -10,7 +10,7 @@ trait ResourceIndex
     	{
     		\File::makeDirectory($this->view_path, 0755, true);
     	}
-    	$fileContent = '@extends("'.$this->layout.'")
+    	$fileContent = '@extends('.$this->layout.')
 
 @push("meta")
 
@@ -32,7 +32,7 @@ trait ResourceIndex
                         <button type="button" class="btn btn-outline-primary btn-sm {{ (count(request()->except('."'".'page'."'".')) > 0) ? '."'".'btn-secondary border-secondary text-white'."'".' : '."''".' }}" data-filter-target="#filter"><i class="fa-solid fa-filter"></i> {{__("Filter")}}</button>
                     </div>
                     <div class="d-flex">
-                        <a href="{{ route('."'".$this->route_name.'.create'."'".') }}" class="btn btn-primary btn-sm ms-1"><i class="fa-solid fa-plus"></i> {{__("Create New")}}</a>
+                        <a href="{{ route('.$this->route_name.'.".create") }}" class="btn btn-primary btn-sm ms-1"><i class="fa-solid fa-plus"></i> {{__("Create New")}}</a>
                     </div>
                 </div>
                 <div class="position-relative w-100">
@@ -41,7 +41,7 @@ trait ResourceIndex
                             '.$this->filter().'
                             <div class="mt-3 d-flex">
                                 <button type="submit" class="btn btn-primary btn-sm me-1">{{ __("Filter") }}</button>
-                                <a href="{{ route('."'".$this->route_name.'.index'."'".') }}" class="btn btn-secondary btn-sm">{{ __("Reset") }}</a>
+                                <a href="{{ route('.$this->route_name.'.".index") }}" class="btn btn-secondary btn-sm">{{ __("Reset") }}</a>
                             </div>
                         </form>
                     </div>
@@ -55,21 +55,27 @@ trait ResourceIndex
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($datas as $index => $data)
+                        @if(count($datas) > 0)
+                            @foreach($datas as $index => $data)
+                            <tr>
+                                <td>{{ ($datas->perPage()*($datas->currentPage() - 1))+($index+1) }}</td>
+                                '.$this->table_column().'
+                                <td>
+                                    <a href="{{route('.$this->route_name.'.".show",[$data->'.$this->primary_key.'])}}" class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __("Show") }}"><i class="fa-solid fa-list"></i></a>
+                                    <a href="{{route('.$this->route_name.'.".edit",[$data->'.$this->primary_key.'])}}" class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __("Edit") }}"><i class="fa-solid fa-edit"></i></a>
+                                    <button type="button" class="btn-sm btn-danger btn confirm" data-form="#delete-{{$data->'.$this->primary_key.'}}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __("Delete") }}" data-swal-title="Warning" data-swal-text="{{__("Do you want to delete this data ?")}}" data-swal-icon="info" data-swal-confirm-text="{{__("Delete")}}" data-swal-cancel-text="{{__("Cancel")}}"><i class="fa-solid fa-trash"></i></button>
+                                    <form method="POST" action="{{route('.$this->route_name.'.".destroy",[$data->'.$this->primary_key.'])}}" id="delete-{{$data->'.$this->primary_key.'}}">
+                                        @csrf
+                                        <input type="hidden" name="_method" value="DELETE">
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        @else
                         <tr>
-                            <td>{{ ($datas->perPage()*($datas->currentPage() - 1))+($index+1) }}</td>
-                            '.$this->table_column().'
-                            <td>
-                                <a href="{{route('."'".$this->route_name.'.show'."'".',[$data->'.$this->primary_key.'])}}" class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __("Show") }}"><i class="fa-solid fa-list"></i></a>
-                                <a href="{{route('."'".$this->route_name.'.edit'."'".',[$data->'.$this->primary_key.'])}}" class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __("Edit") }}"><i class="fa-solid fa-edit"></i></a>
-                                <button type="button" class="btn-sm btn-danger btn confirm" data-form="#delete-{{$data->'.$this->primary_key.'}}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __("Delete") }}" data-swal-title="Warning" data-swal-text="{{__("Do you want to delete this data ?")}}" data-swal-icon="info" data-swal-confirm-text="{{__("Delete")}}" data-swal-cancel-text="{{__("Cancel")}}"><i class="fa-solid fa-trash"></i></button>
-                                <form method="POST" action="{{route('."'".$this->route_name.'.destroy'."'".',[$data->'.$this->primary_key.'])}}" id="delete-{{$data->'.$this->primary_key.'}}">
-                                    @csrf
-                                    <input type="hidden" name="_method" value="DELETE">
-                                </form>
-                            </td>
+                            <td colspan="'.(count($this->table)+2).'" class="text-center p-5">{{__("paagez.no_data_found")}}</td>
                         </tr>
-                        @endforeach
+                        @endif
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-center z-1">

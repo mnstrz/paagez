@@ -62,13 +62,18 @@ class CommandCreateNavigationLauncher extends Command
                 return 1;
             }
 
+            $roles = '';
+            $roles = \DB::table('roles')->where('guard_name','web')->get()->pluck("name")->toArray();
+            $roles = implode('","',$roles);
+            $roles = '["'.$roles.'"]';
+
         $fileContent = '<?php
 
 namespace '.$this->namespace.'\Navigations;
 
 use Monsterz\Paagez\Classes\Navigations\ModuleLauncher;
 
-class Launcher extends ModuleMenu
+class Launcher extends ModuleLauncher
 {
     public function register()
     {
@@ -78,7 +83,8 @@ class Launcher extends ModuleMenu
           "label" => __("'.$this->module_title.'"),
           "icon" => "",
           "image" => "/theme/images/logo.jpg",
-          "url" => "#"
+          "url" => url("/".config("paagez.prefix")."/'.$this->module_name.'/index"),
+          "roles" => '."$roles".'
         ]);
     }
 }';

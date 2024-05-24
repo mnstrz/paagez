@@ -1,5 +1,5 @@
 @if($tabs && $active)
-<div class="container">
+<div class="container mb-3">
   <ul class="nav nav-tabs">
     @foreach($tabs as $url => $label)
       <li class="nav-item">

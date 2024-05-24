@@ -16,15 +16,18 @@ class AdminBreadcrumb extends Component
 
     protected function getBreadCrumbs()
     {
-        $modules = config('paagez.models.module')::all();
+        $modules = config('paagez.models.module')::where('is_active',1)->get();
         foreach ($modules as $key => $module) {
             $classname = $module->namespace."\\Navigations\\Breadcrumb";
-            if(class_exists($classname))
+            if(file_exists(base_path($classname.".php")))
             {
-                $breadcrumb = new $classname;
-                foreach($breadcrumb->breadcrumbs as $key => $item)
+                if(class_exists($classname))
                 {
-                    $this->breadcrumbs[$key] = $item;
+                    $breadcrumb = new $classname;
+                    foreach($breadcrumb->breadcrumbs as $key => $item)
+                    {
+                        $this->breadcrumbs[$key] = $item;
+                    }
                 }
             }
         }

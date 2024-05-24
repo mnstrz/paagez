@@ -1,6 +1,9 @@
 @extends('paagez::layouts.app')
 @push('meta')
 <title>{{__('Login')}} - {{ config('paagez.app_name') }}</title>
+@if(config('paagez.gcaptcha'))
+	{!! ReCaptcha::htmlScriptTagJsApi() !!}
+@endif
 @endpush
 @section('contents')
 <section id="login">
@@ -8,7 +11,7 @@
 		<div class="row flex-row-reverse align-items-center h-100">
 			<div class="col-md-6 right-side p-3 d-flex align-items-center flex-column justify-content-center">
 				<div class="d-flex flex-column align-items-center mb-3">
-      				<img src="{{ config('paagez.app_logo') }}" alt="Logo" width="50" class="d-inline-block align-text-top mb-1">
+      				<img src="{{ config('paagez.app_logo') }}" alt="Logo" width="78px" height="78px" class="d-inline-block align-text-top mb-1 img-cover img-rounded">
       				<h3 class="fw-bold text-primary ms-2">{{ config('paagez.app_name') }}</h3>
 				</div>
 				<form action="" method="POST" class="px-3 mt-5">
@@ -33,6 +36,16 @@
 						  @enderror
 						</div>
 					</div>
+
+					@if(config('paagez.gcaptcha'))
+						<div class="mb-3">
+							{!! htmlFormSnippet() !!}
+							@error('g-recaptcha-responseq')
+								<small class="text-danger">{{ $message }}</small>
+						  	@enderror
+						</div>
+					@endif
+
 					<div class="mb-3">
 						<div class="form-floating mb-3">
 							<button class="btn btn-lg btn-primary w-100 text-white fw-bold">{{ __('Login') }}</button>
@@ -47,9 +60,6 @@
 </section>
 @endsection
 @push('styles')
-	@if(config('paagez.gcaptcha'))
-	{!! ReCaptcha::htmlScriptTagJsApi() !!}
-	@endif
 @endpush
 @push('scripts')
 @endpush
