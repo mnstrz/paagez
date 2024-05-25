@@ -86,7 +86,7 @@
 					<a href="{{ route(config('paagez.route_prefix').".profile") }}"><i class="fa-solid fa-user"></i> {{ \Auth::user()->name }}</a>
 				</li>
 				<li>
-					<a href="{{ route('paagez.logout') }}"><i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}</a>
+					<a href="{{ route(config('paagez.route_prefix').'.logout') }}"><i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}</a>
 				</li>
 			</ul>
 		</li>
