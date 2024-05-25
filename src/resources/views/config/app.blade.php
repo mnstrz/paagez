@@ -11,13 +11,13 @@
 			<a href="{{ url(config('paagez.prefix')) }}"><span><i class="fa-solid fa-home"></i></span></a>
 		</li>
 		<li>
-			<a href="{{ route(config('paagez.route_prefix').'.app.config') }}"><span>{{__('paagez.application')}}</span></a>
+			<a href="{{ route(config('paagez.route_prefix').'.config.app') }}"><span>{{__('paagez.application')}}</span></a>
 		</li>
 	</ul>
 </div>
 <div class="container">
 	<div class="row">
-		@include("paagez::app.tab",['active'=>'app'])
+		@include("paagez::config.tab",['active'=>'app'])
 		<div class="col-12">
 			<div class="card py-5 px-3 shadow w-100 shadow border-0">
 				<x-alert-floating/>

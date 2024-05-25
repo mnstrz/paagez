@@ -1,6 +1,6 @@
 <?php
 
-namespace Monsterz\Paagez\Controllers\App;
+namespace Monsterz\Paagez\Controllers\Config;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -19,14 +19,14 @@ class RolesController extends Controller
             $datas->where("guard","like","%".request()->guard."%");
         }
         $datas = $datas->paginate(10);
-        return view(config('paagez.theme').'::app.roles.index',compact('datas'));
+        return view(config('paagez.theme').'::config.roles.index',compact('datas'));
     }
 
     public function create()
     {
         $roles = config('paagez.models.roles');
         $data = new $roles;
-        return view(config('paagez.theme')."::app.roles.form",compact("data"));
+        return view(config('paagez.theme')."::config.roles.form",compact("data"));
     }
 
     public function store(Request $request)
@@ -45,7 +45,7 @@ class RolesController extends Controller
             "name" => $request->name,
             "guard_name" => $request->guard_name
         ]);
-        return redirect()->route(config('paagez.route_prefix').'.app.roles.index')->with(["success" => __("Successfully create new role")]);
+        return redirect()->route(config('paagez.route_prefix').'.config.roles.index')->with(["success" => __("Successfully create new role")]);
     }
 
     public function edit($roles)
@@ -53,9 +53,9 @@ class RolesController extends Controller
         $data = config('paagez.models.roles')::findOrFail($roles);
         if($data->id == 1 || ($data->name == 'user' && $data->guard_name == 'api'))
         {
-            return redirect()->route(config('paagez.route_prefix').'.app.roles.index')->with(["warning" => __("The roles cannot be modify or delete")]);
+            return redirect()->route(config('paagez.route_prefix').'.config.roles.index')->with(["warning" => __("The roles cannot be modify or delete")]);
         }
-        return view(config('paagez.theme')."::app.roles.form",compact("data"));
+        return view(config('paagez.theme')."::config.roles.form",compact("data"));
     }
 
     public function update(Request $request, $roles)
@@ -76,7 +76,7 @@ class RolesController extends Controller
             "guard_name" => $request->guard_name
             
         ]);
-        return redirect()->route(config('paagez.route_prefix').'.app.roles.index')->with(["success" => __("Successfully edited role")]);
+        return redirect()->route(config('paagez.route_prefix').'.config.roles.index')->with(["success" => __("Successfully edited role")]);
     }
 
     public function destroy($roles)
@@ -84,9 +84,9 @@ class RolesController extends Controller
         $data = config('paagez.models.roles')::findOrFail($roles);
         if($data->id == 1 || ($data->name == 'user' && $data->guard_name == 'api'))
         {
-            return redirect()->route(config('paagez.route_prefix').'.app.roles.index')->with(["warning" => __("The roles cannot be modify or delete")]);
+            return redirect()->route(config('paagez.route_prefix').'.config.roles.index')->with(["warning" => __("The roles cannot be modify or delete")]);
         }
         $data->delete();
-        return redirect()->route(config('paagez.route_prefix').'.app.roles.index')->with(["success" => __("Successfully deleted role")]);
+        return redirect()->route(config('paagez.route_prefix').'.config.roles.index')->with(["success" => __("Successfully deleted role")]);
     }
 }

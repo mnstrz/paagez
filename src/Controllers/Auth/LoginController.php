@@ -31,10 +31,6 @@ class LoginController extends Controller
         }
         $roles = config('paagez.models.roles')::where('guard_name','web')->get()->pluck("name")->toArray();
         $this->checkTooManyFailedAttempts();
-        $this->validate($request,[
-            'email' => 'required|email|exists:users,email',
-            'password' => 'required|string'
-        ]);
         $user = config('paagez.models.user')::where('email',$request->email)->first();
         if(\Auth::attempt([
             'email' => $request->email,
@@ -49,7 +45,7 @@ class LoginController extends Controller
             return redirect($this->redirectTo)->with(['success' => __('paagez.welcome_back',['name'=>$user->name])]);
         }
         RateLimiter::hit($this->throttleKey(), $seconds = 60);
-        return redirect()->route('login')->withErrors([
+        return redirect()->route(config('paagez.route_prefix').".login")->withErrors([
             'email' => __('auth.failed'),
         ])->onlyInput('email');
     }

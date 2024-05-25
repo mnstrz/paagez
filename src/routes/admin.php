@@ -10,7 +10,11 @@ Route::group(['middleware' => ['setup']],function(){
     Route::group(['middleware' => ['admin']],function(){
 
 		Route::get('/', [\Monsterz\Paagez\Controllers\Dashboard\DashboardController::class, 'index'])->name('index');
+        
 		Route::get('/logout', [\Monsterz\Paagez\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+        Route::get('/profile', [\Monsterz\Paagez\Controllers\Auth\ProfileController::class, 'index'])->name('profile');
+        Route::post('/profile', [\Monsterz\Paagez\Controllers\Auth\ProfileController::class, 'update'])->name('profile.update');
 
         Route::get('/notifications', [\Monsterz\Paagez\Controllers\Notification\NotificationController::class, 'index'])->name('notifications.index');
         Route::get('/notifications/read/all', [\Monsterz\Paagez\Controllers\Notification\NotificationController::class, 'readAll'])->name('notifications.read.all');
@@ -21,36 +25,36 @@ Route::group(['middleware' => ['setup']],function(){
             Route::post('/update/database', [\Monsterz\Paagez\Controllers\Setup\SetupController::class, 'updateDatabase'])->name('update.database');
             Route::post('/update/module', [\Monsterz\Paagez\Controllers\Setup\SetupController::class, 'updateModule'])->name('update.module');
 
-            Route::get('/app/config', [\Monsterz\Paagez\Controllers\App\SettingController::class, 'index'])->name('app.config');
-            Route::post('/app/config', [\Monsterz\Paagez\Controllers\App\SettingController::class, 'update'])->name('app.config.update');
+            Route::get('/config/app', [\Monsterz\Paagez\Controllers\Config\AppController::class, 'index'])->name('config.app');
+            Route::post('/config/app', [\Monsterz\Paagez\Controllers\Config\AppController::class, 'update'])->name('config.app.update');
 
-            Route::get('/app/roles', [\Monsterz\Paagez\Controllers\App\RolesController::class, 'index'])->name('app.roles.index');
-            Route::get('/app/roles/create', [\Monsterz\Paagez\Controllers\App\RolesController::class, 'create'])->name('app.roles.create');
-            Route::post('/app/roles', [\Monsterz\Paagez\Controllers\App\RolesController::class, 'store'])->name('app.roles.store');
-            Route::get('/app/roles/{roles}/edit', [\Monsterz\Paagez\Controllers\App\RolesController::class, 'edit'])->name('app.roles.edit');
-            Route::put('/app/roles/{roles}/edit', [\Monsterz\Paagez\Controllers\App\RolesController::class, 'update'])->name('app.roles.update');
-            Route::delete('/app/roles/{roles}/destroy', [\Monsterz\Paagez\Controllers\App\RolesController::class, 'destroy'])->name('app.roles.destroy');
+            Route::get('/config/roles', [\Monsterz\Paagez\Controllers\Config\RolesController::class, 'index'])->name('config.roles.index');
+            Route::get('/config/roles/create', [\Monsterz\Paagez\Controllers\Config\RolesController::class, 'create'])->name('config.roles.create');
+            Route::post('/config/roles', [\Monsterz\Paagez\Controllers\Config\RolesController::class, 'store'])->name('config.roles.store');
+            Route::get('/config/roles/{roles}/edit', [\Monsterz\Paagez\Controllers\Config\RolesController::class, 'edit'])->name('config.roles.edit');
+            Route::put('/config/roles/{roles}/edit', [\Monsterz\Paagez\Controllers\Config\RolesController::class, 'update'])->name('config.roles.update');
+            Route::delete('/config/roles/{roles}/destroy', [\Monsterz\Paagez\Controllers\Config\RolesController::class, 'destroy'])->name('config.roles.destroy');
 
-            Route::get('/app/users', [\Monsterz\Paagez\Controllers\App\UsersController::class, 'index'])->name('app.users.index');
-            Route::get('/app/users/create', [\Monsterz\Paagez\Controllers\App\UsersController::class, 'create'])->name('app.users.create');
-            Route::post('/app/users', [\Monsterz\Paagez\Controllers\App\UsersController::class, 'store'])->name('app.users.store');
-            Route::get('/app/users/{users}/edit', [\Monsterz\Paagez\Controllers\App\UsersController::class, 'edit'])->name('app.users.edit');
-            Route::put('/app/users/{users}/edit', [\Monsterz\Paagez\Controllers\App\UsersController::class, 'update'])->name('app.users.update');
-            Route::delete('/app/users/{users}/destroy', [\Monsterz\Paagez\Controllers\App\UsersController::class, 'destroy'])->name('app.users.destroy');
+            Route::get('/config/users', [\Monsterz\Paagez\Controllers\Config\UsersController::class, 'index'])->name('config.users.index');
+            Route::get('/config/users/create', [\Monsterz\Paagez\Controllers\Config\UsersController::class, 'create'])->name('config.users.create');
+            Route::post('/config/users', [\Monsterz\Paagez\Controllers\Config\UsersController::class, 'store'])->name('config.users.store');
+            Route::get('/config/users/{users}/edit', [\Monsterz\Paagez\Controllers\Config\UsersController::class, 'edit'])->name('config.users.edit');
+            Route::put('/config/users/{users}/edit', [\Monsterz\Paagez\Controllers\Config\UsersController::class, 'update'])->name('config.users.update');
+            Route::delete('/config/users/{users}/destroy', [\Monsterz\Paagez\Controllers\Config\UsersController::class, 'destroy'])->name('config.users.destroy');
 
-            Route::get('/app/modules', [\Monsterz\Paagez\Controllers\App\ModulesController::class, 'index'])->name('app.modules.index');
-            Route::get('/app/modules/{module}/show', [\Monsterz\Paagez\Controllers\App\ModulesController::class, 'show'])->name('app.modules.show');
-            Route::get('/app/modules/{module}/change-status', [\Monsterz\Paagez\Controllers\App\ModulesController::class, 'changeStatus'])->name('app.modules.change-status');
+            Route::get('/config/modules', [\Monsterz\Paagez\Controllers\Config\ModulesController::class, 'index'])->name('config.modules.index');
+            Route::get('/config/modules/{module}/show', [\Monsterz\Paagez\Controllers\Config\ModulesController::class, 'show'])->name('config.modules.show');
+            Route::get('/config/modules/{module}/change-status', [\Monsterz\Paagez\Controllers\Config\ModulesController::class, 'changeStatus'])->name('config.modules.change-status');
 
-            Route::get('/app/rest', [\Monsterz\Paagez\Controllers\App\RestController::class, 'index'])->name('app.rest.index');
-            Route::get('/app/rest/create', [\Monsterz\Paagez\Controllers\App\RestController::class, 'create'])->name('app.rest.create');
-            Route::post('/app/rest', [\Monsterz\Paagez\Controllers\App\RestController::class, 'store'])->name('app.rest.store');
-            Route::delete('/app/rest/{users}/revoke', [\Monsterz\Paagez\Controllers\App\RestController::class, 'revoke'])->name('app.rest.revoke');
+            Route::get('/config/rest', [\Monsterz\Paagez\Controllers\Config\RestController::class, 'index'])->name('config.rest.index');
+            Route::get('/config/rest/create', [\Monsterz\Paagez\Controllers\Config\RestController::class, 'create'])->name('config.rest.create');
+            Route::post('/config/rest', [\Monsterz\Paagez\Controllers\Config\RestController::class, 'store'])->name('config.rest.store');
+            Route::delete('/config/rest/{users}/revoke', [\Monsterz\Paagez\Controllers\Config\RestController::class, 'revoke'])->name('config.rest.revoke');
             
-            Route::get('/app/email', [\Monsterz\Paagez\Controllers\App\EmailController::class, 'index'])->name('app.email');
-            Route::post('/app/email', [\Monsterz\Paagez\Controllers\App\EmailController::class, 'update'])->name('app.email.update');
-            Route::get('/app/email/reset', [\Monsterz\Paagez\Controllers\App\EmailController::class, 'reset'])->name('app.email.reset');
-            Route::post('/app/email/test', [\Monsterz\Paagez\Controllers\App\EmailController::class, 'test'])->name('app.email.test');
+            Route::get('/config/email', [\Monsterz\Paagez\Controllers\Config\EmailController::class, 'index'])->name('config.email');
+            Route::post('/config/email', [\Monsterz\Paagez\Controllers\Config\EmailController::class, 'update'])->name('config.email.update');
+            Route::get('/config/email/reset', [\Monsterz\Paagez\Controllers\Config\EmailController::class, 'reset'])->name('config.email.reset');
+            Route::post('/config/email/test', [\Monsterz\Paagez\Controllers\Config\EmailController::class, 'test'])->name('config.email.test');
         });
     });
 });

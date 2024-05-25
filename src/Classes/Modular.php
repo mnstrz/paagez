@@ -110,7 +110,7 @@ class Modular
 			$this->can_install = false;
 			$this->error_messages[] = __('paagez.module_name_required');
 		}
-		if(in_array($this->name,['admin','website','config','settings','users','user','role','permission','permissions','api','roles','app','update','install','setup','login','logout','sign','notifications','notification','rest','apperance','theme','display','dashboard','module','modules','email','mail','job','jobs']))
+		if(in_array($this->name,['admin','website','config','settings','users','user','role','permission','permissions','api','roles','app','update','install','setup','login','logout','sign','notifications','notification','rest','apperance','theme','display','dashboard','module','modules','email','mail','job','jobs','profile','profiles']))
 		{
 			$this->can_install = false;
 			$this->error_messages[] = __('paagez.invalid_name');

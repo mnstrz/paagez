@@ -11,13 +11,13 @@
 			<a href="{{ url(config('paagez.prefix')) }}"><span><i class="fa-solid fa-home"></i></span></a>
 		</li>
 		<li>
-			<a href="{{ route(config('paagez.route_prefix').'.app.email') }}"><span>{{__('paagez.email')}}</span></a>
+			<a href="{{ route(config('paagez.route_prefix').'.config.email') }}"><span>{{__('paagez.email')}}</span></a>
 		</li>
 	</ul>
 </div>
 <div class="container">
 	<div class="row">
-		@include("paagez::app.tab",['active'=>'email'])
+		@include("paagez::config.tab",['active'=>'email'])
 		<div class="col-12">
 			<div class="card py-5 px-3 shadow w-100 shadow border-0">
 				<x-alert-floating/>
@@ -130,11 +130,11 @@
 						<div class="col-md-9 offset-md-3 d-flex">
 							<button type="reset" class="btn btn-lg btn-secondary btn-sm">{{ __('Reset') }}</button>
 							<button type="submit" class="btn btn-lg btn-primary btn-sm ms-1">{{ __('Update') }}</button>
-							<a href="{{ route(config('paagez.route_prefix').".app.email.reset") }}" class="btn btn-lg btn-outline-secondary btn-sm confirm ms-auto" data-swal-title="Warning" data-swal-text="{{__("Do you want to reset this settings?")}}" data-swal-icon="info" data-swal-confirm-text="{{__("Yes, reset")}}" data-swal-cancel-text="{{__("Cancel")}}">{{ __('Reset to default') }}</a>
+							<a href="{{ route(config('paagez.route_prefix').".config.email.reset") }}" class="btn btn-lg btn-outline-secondary btn-sm confirm ms-auto" data-swal-title="Warning" data-swal-text="{{__("Do you want to reset this settings?")}}" data-swal-icon="info" data-swal-confirm-text="{{__("Yes, reset")}}" data-swal-cancel-text="{{__("Cancel")}}">{{ __('Reset to default') }}</a>
 						</div>
 					</div>
 				</form>
-				<form action="{{route(config('paagez.route_prefix').".app.email.test")}}" method="POST" class="p-3 mt-3 border-top" enctype="multipart/form-data">
+				<form action="{{route(config('paagez.route_prefix').".config.email.test")}}" method="POST" class="p-3 mt-3 border-top" enctype="multipart/form-data">
 					<div class="mb-3 row">
 						<div class="col-12">
 							<h5>{{__('paagez.test_email')}}</h5>

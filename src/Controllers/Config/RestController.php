@@ -1,6 +1,6 @@
 <?php
 
-namespace Monsterz\Paagez\Controllers\App;
+namespace Monsterz\Paagez\Controllers\Config;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -22,14 +22,14 @@ class RestController extends Controller
             $datas->where("email","like","%".request()->email."%");
         }
         $datas = $datas->paginate(10);
-        return view(config('paagez.theme').'::app.rest.index',compact('datas'));
+        return view(config('paagez.theme').'::config.rest.index',compact('datas'));
     }
 
     public function create()
     {
         $rest = config('paagez.models.user');
         $data = new $rest;
-        return view(config('paagez.theme')."::app.rest.form",compact("data"));
+        return view(config('paagez.theme')."::config.rest.form",compact("data"));
     }
 
     public function store(Request $request)
@@ -57,7 +57,7 @@ class RestController extends Controller
             $data->guard_name = 'api';
             $data->assignRole($role->id);
         }
-        return redirect()->route(config('paagez.route_prefix').'.app.rest.index')->with(["success" => __("Successfully create new client API")]);
+        return redirect()->route(config('paagez.route_prefix').'.config.rest.index')->with(["success" => __("Successfully create new client API")]);
     }
 
     public function revoke($rest)
@@ -66,6 +66,6 @@ class RestController extends Controller
         $data->guard_name = 'api';
         $data->assignRole([]);
         $data->delete();
-        return redirect()->route(config('paagez.route_prefix').'.app.rest.index')->with(["success" => __("Successfully revoke client API")]);
+        return redirect()->route(config('paagez.route_prefix').'.config.rest.index')->with(["success" => __("Successfully revoke client API")]);
     }
 }

@@ -1,15 +1,15 @@
 <?php
 
-namespace Monsterz\Paagez\Controllers\App;
+namespace Monsterz\Paagez\Controllers\Config;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class SettingController extends Controller
+class AppController extends Controller
 {
     public function index()
     {
-        return view(config('paagez.theme').'::app.settings');
+        return view(config('paagez.theme').'::config.app');
     }
 
     public function update(Request $request)
@@ -68,6 +68,6 @@ class SettingController extends Controller
             'value' => $request->prefix
         ]);
         \Config::set('paagez.prefix',$request->prefix);
-        return redirect(config('paagez.prefix')."/app/config")->with(["success" => __("Updated")]);
+        return redirect(config('paagez.prefix')."/config/app")->with(["success" => __("Updated")]);
     }
 }

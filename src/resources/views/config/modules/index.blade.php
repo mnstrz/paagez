@@ -11,13 +11,13 @@
 				<a href="{{ url(config('paagez.prefix')) }}"><span><i class="fa-solid fa-home"></i></span></a>
 			</li>
 			<li>
-				<a href="{{ route(config('paagez.route_prefix').'.app.modules.index') }}"><span>{{__('paagez.modules')}}</span></a>
+				<a href="{{ route(config('paagez.route_prefix').'.config.modules.index') }}"><span>{{__('paagez.modules')}}</span></a>
 			</li>
 		</ul>
 	</div>
 	<div class="container">
 		<div class="row">
-			@include("paagez::app.tab",['active'=>'modules'])
+			@include("paagez::config.tab",['active'=>'modules'])
 	        <div class="col-12">
 	            <x-alert-floating/>
 	            @if(count($not_installed??[]) > 0)
@@ -70,11 +70,11 @@
 	                			<td>{{$item->version}}</td>
 	                			<td>
 	                				<div class="form-check form-switch">
-									  <input class="form-check-input change-module-status" type="checkbox" role="switch" id="enable_{{$item->name}}" data-url="{{route(config('paagez.route_prefix').".app.modules.change-status",[$item->name])}}" {{($item->active) ? 'checked' : ''}}>
+									  <input class="form-check-input change-module-status" type="checkbox" role="switch" id="enable_{{$item->name}}" data-url="{{route(config('paagez.route_prefix').".config.modules.change-status",[$item->name])}}" {{($item->active) ? 'checked' : ''}}>
 									</div>
 	                			</td>
 	                			<td>
-	                				<a href="{{ route(config('paagez.route_prefix').".app.modules.show",[$item->name]) }}" class="btn btn-outline-primary btn-sm" data-bs-toggle='tooltip' data-bs-title="{{__('Show')}}"><i class="fa-solid fa-list"></i></a>
+	                				<a href="{{ route(config('paagez.route_prefix').".config.modules.show",[$item->name]) }}" class="btn btn-outline-primary btn-sm" data-bs-toggle='tooltip' data-bs-title="{{__('Show')}}"><i class="fa-solid fa-list"></i></a>
 	                				<a href="{{ url(config('paagez.prefix')."/".$item->route_prefix."/config") }}" class="btn btn-outline-primary btn-sm" data-bs-toggle='tooltip' data-bs-title="{{__('Config')}}"><i class="fa-solid fa-gear"></i></a>
 	                			</td>
 	                		</tr>

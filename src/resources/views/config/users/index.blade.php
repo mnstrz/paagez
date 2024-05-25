@@ -1,7 +1,7 @@
 @extends('paagez::layouts.admin')
 
 @push('meta')
-<title>{{__('paagez.roles')}} - {{config('paagez.app_name')}}</title>
+<title>{{__('paagez.users')}} - {{config('paagez.app_name')}}</title>
 @endpush
 
 @section('contents')
@@ -11,13 +11,13 @@
 				<a href="{{ url(config('paagez.prefix')) }}"><span><i class="fa-solid fa-home"></i></span></a>
 			</li>
 			<li>
-				<a href="{{ route(config('paagez.route_prefix').'.app.roles.index') }}"><span>{{__('paagez.roles')}}</span></a>
+				<a href="{{ route(config('paagez.route_prefix').'.config.users.index') }}"><span>{{__('paagez.users')}}</span></a>
 			</li>
 		</ul>
 	</div>
     <div class="container">
         <div class="row">
-            @include("paagez::app.tab",['active'=>'roles'])
+            @include("paagez::config.tab",['active'=>'users'])
             <div class="col-12">
                 <div class="card p-3 shadow w-100 shadow border-0">
                     <x-alert-floating/>
@@ -26,7 +26,7 @@
                             <button type="button" class="btn btn-outline-primary btn-sm {{ (count(request()->except('page')) > 0) ? 'btn-secondary border-secondary text-white' : '' }}" data-filter-target="#filter"><i class="fa-solid fa-filter"></i> {{__("Filter")}}</button>
                         </div>
                         <div class="d-flex">
-                            <a href="{{ route(config('paagez.route_prefix').'.app.roles.create') }}" class="btn btn-primary btn-sm ms-1"><i class="fa-solid fa-plus"></i> {{__("Create New")}}</a>
+                            <a href="{{ route(config('paagez.route_prefix').'.config.users.create') }}" class="btn btn-primary btn-sm ms-1"><i class="fa-solid fa-plus"></i> {{__("Create New")}}</a>
                         </div>
                     </div>
                     <div class="position-relative w-100">
@@ -37,12 +37,25 @@
                                     <input type="text" class="form-control form-control-sm" name="name" id="name" value="{{ request()->name }}">
                                 </div>
                                 <div class="mb-1">
-                                    <label for="name">{{ __("Guard") }}</label>
-                                    <input type="text" class="form-control form-control-sm" name="guard" id="guard" value="{{ request()->guard }}">
+                                    <label for="name">{{ __("Email Address") }}</label>
+                                    <input type="text" class="form-control form-control-sm" name="email" id="email" value="{{ request()->email }}">
+                                </div>
+                                <div class="mb-1">
+                                    <label for="name">{{ __("paagez.roles") }}</label>
+                                    <div class="d-flex flex-wrap">
+                                        @foreach($roles as $role)
+                                        <div class="form-check me-1">
+                                          <input class="form-check-input" type="checkbox" value="{{$role->id}}" id="role_{{$role->id}}" name="roles[]" {{ (in_array($role->id,request()->roles??[])) ? 'checked' : '' }}>
+                                          <label class="form-check-label" for="role_{{$role->id}}">
+                                            {{$role->name}} (<i>{{$role->guard_name}}</i>)
+                                          </label>
+                                        </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                                 <div class="mt-3 d-flex">
                                     <button type="submit" class="btn btn-primary btn-sm me-1">{{ __("Filter") }}</button>
-                                    <a href="{{ route(config('paagez.route_prefix').'.app.roles.index') }}" class="btn btn-secondary btn-sm">{{ __("Reset") }}</a>
+                                    <a href="{{ route(config('paagez.route_prefix').'.config.users.index') }}" class="btn btn-secondary btn-sm">{{ __("Reset") }}</a>
                                 </div>
                             </form>
                         </div>
@@ -52,7 +65,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>{{__("Name")}}</th>
-                                <th>{{__("Guard")}}</th>
+                                <th>{{__("Email")}}</th>
+                                <th>{{__("Roles")}}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -62,17 +76,22 @@
                                 <tr>
                                     <td>{{ ($datas->perPage()*($datas->currentPage() - 1))+($index+1) }}</td>
                                     <td>{{$data->name}}</td>
-                                    <td>{{$data->guard_name}}</td>
+                                    <td>{{$data->email}}</td>
                                     <td>
-                                        @if($data->id != 1 && ($data->name != 'user' && $data->guard_name != 'api'))
-                                        <a href="{{route(config('paagez.route_prefix').'.app.roles.edit',[$data->id])}}" class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __("Edit") }}"><i class="fa-solid fa-edit"></i></a>
+                                        @foreach($data->roles as $role)
+                                        <label class="badge bg-primary me-1">{{$role->name}} (<i>{{$role->guard_name}}</i>)</label>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @if($data->id != 1 && ($data->name != 'user_api' && $data->guard_name != 'api'))
+                                        <a href="{{route(config('paagez.route_prefix').'.config.users.edit',[$data->id])}}" class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __("Edit") }}"><i class="fa-solid fa-edit"></i></a>
                                         <button type="button" class="btn-sm btn-danger btn confirm" data-form="#delete-{{$data->id}}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __("Delete") }}" data-swal-title="Warning" data-swal-text="{{__("Do you want to delete this data ?")}}" data-swal-icon="info" data-swal-confirm-text="{{__("Delete")}}" data-swal-cancel-text="{{__("Cancel")}}"><i class="fa-solid fa-trash"></i></button>
-                                        <form method="POST" action="{{route(config('paagez.route_prefix').'.app.roles.destroy',[$data->id])}}" id="delete-{{$data->id}}">
+                                        <form method="POST" action="{{route(config('paagez.route_prefix').'.config.users.destroy',[$data->id])}}" id="delete-{{$data->id}}">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                         </form>
                                         @else
-                                        <i>{{__('paagez.roles_default')}}</i>
+                                        <i>{{__('paagez.users_default')}}</i>
                                         @endif
                                     </td>
                                 </tr>

@@ -47,6 +47,10 @@ class AdminNavbar extends Component
     {
         $childs = \collect($this->navs)->filter(function ($item) {
                         $parent = (isset($item['parent'])) ? $item['parent'] : null;
+                        if(!\Auth::user()->hasRole($item['roles']))
+                        {
+                            return false;
+                        }
                         return !is_null($parent);
                     })->sortBy('order')->map(function($item)
                     {
@@ -56,6 +60,10 @@ class AdminNavbar extends Component
                     });
         $this->navs = \collect($this->navs)->filter(function ($item) {
                         $parent = (isset($item['parent'])) ? $item['parent'] : null;
+                        if(!\Auth::user()->hasRole($item['roles']))
+                        {
+                            return false;
+                        }
                         return is_null($parent);
                     })->sortBy('order')->map(function($item) use($childs)
                     {

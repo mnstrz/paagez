@@ -1,6 +1,6 @@
 <?php
 
-namespace Monsterz\Paagez\Controllers\App;
+namespace Monsterz\Paagez\Controllers\Config;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -34,7 +34,7 @@ class UsersController extends Controller
         }
         $datas = $datas->paginate(10);
         $roles = config('paagez.models.roles')::where('guard_name','web')->get();
-        return view(config('paagez.theme').'::app.users.index',compact('datas','roles'));
+        return view(config('paagez.theme').'::config.users.index',compact('datas','roles'));
     }
 
     public function create()
@@ -42,7 +42,7 @@ class UsersController extends Controller
         $users = config('paagez.models.user');
         $data = new $users;
         $roles = config('paagez.models.roles')::where('guard_name','web')->get();
-        return view(config('paagez.theme')."::app.users.form",compact("data",'roles'));
+        return view(config('paagez.theme')."::config.users.form",compact("data",'roles'));
     }
 
     public function store(Request $request)
@@ -71,14 +71,14 @@ class UsersController extends Controller
             "password" => bcrypt($request->password),
         ]);
         $data->assignRole($request->roles??[]);
-        return redirect()->route(config('paagez.route_prefix').'.app.users.index')->with(["success" => __("Successfully create new user")]);
+        return redirect()->route(config('paagez.route_prefix').'.config.users.index')->with(["success" => __("Successfully create new user")]);
     }
 
     public function edit($users)
     {
         $data = config('paagez.models.user')::where('id','!=',\Auth::user()->id)->findOrFail($users);
         $roles = config('paagez.models.roles')::where('guard_name','web')->get();
-        return view(config('paagez.theme')."::app.users.form",compact("data",'roles'));
+        return view(config('paagez.theme')."::config.users.form",compact("data",'roles'));
     }
 
     public function update(Request $request, $users)
@@ -112,14 +112,14 @@ class UsersController extends Controller
             $data->save();
         }
         $data->assignRole($request->roles??[]);
-        return redirect()->route(config('paagez.route_prefix').'.app.users.index')->with(["success" => __("Successfully edited user")]);
+        return redirect()->route(config('paagez.route_prefix').'.config.users.index')->with(["success" => __("Successfully edited user")]);
     }
 
     public function destroy($users)
     {
-        $data->assignRole([]);
         $data = config('paagez.models.user')::where('id','!=',\Auth::user()->id)->findOrFail($users);
+        $data->assignRole([]);
         $data->delete();
-        return redirect()->route(config('paagez.route_prefix').'.app.users.index')->with(["success" => __("Successfully deleted role")]);
+        return redirect()->route(config('paagez.route_prefix').'.config.users.index')->with(["success" => __("Successfully deleted role")]);
     }
 }

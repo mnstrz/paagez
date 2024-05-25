@@ -11,13 +11,13 @@
 				<a href="{{ url(config('paagez.prefix')) }}"><span><i class="fa-solid fa-home"></i></span></a>
 			</li>
 			<li>
-				<a href="{{ route(config('paagez.route_prefix').'.app.rest.index') }}"><span>{{__('paagez.rest')}}</span></a>
+				<a href="{{ route(config('paagez.route_prefix').'.config.rest.index') }}"><span>{{__('paagez.rest')}}</span></a>
 			</li>
 		</ul>
 	</div>
     <div class="container">
         <div class="row">
-            @include("paagez::app.tab",['active'=>'rest'])
+            @include("paagez::config.tab",['active'=>'rest'])
             <div class="col-12">
                 <div class="card p-3 shadow w-100 shadow border-0">
                     <x-alert-floating/>
@@ -26,7 +26,7 @@
                             <button type="button" class="btn btn-outline-primary btn-sm {{ (count(request()->except('page')) > 0) ? 'btn-secondary border-secondary text-white' : '' }}" data-filter-target="#filter"><i class="fa-solid fa-filter"></i> {{__("Filter")}}</button>
                         </div>
                         <div class="d-flex">
-                            <a href="{{ route(config('paagez.route_prefix').'.app.rest.create') }}" class="btn btn-primary btn-sm ms-1"><i class="fa-solid fa-plus"></i> {{__("Create New")}}</a>
+                            <a href="{{ route(config('paagez.route_prefix').'.config.rest.create') }}" class="btn btn-primary btn-sm ms-1"><i class="fa-solid fa-plus"></i> {{__("Create New")}}</a>
                         </div>
                     </div>
                     <div class="position-relative w-100">
@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="mt-3 d-flex">
                                     <button type="submit" class="btn btn-primary btn-sm me-1">{{ __("Filter") }}</button>
-                                    <a href="{{ route(config('paagez.route_prefix').'.app.rest.index') }}" class="btn btn-secondary btn-sm">{{ __("Reset") }}</a>
+                                    <a href="{{ route(config('paagez.route_prefix').'.config.rest.index') }}" class="btn btn-secondary btn-sm">{{ __("Reset") }}</a>
                                 </div>
                             </form>
                         </div>
@@ -79,7 +79,7 @@
                                     <td>{{$data->email}}</td>
                                     <td>
                                         <button type="button" class="btn-sm btn-danger btn confirm" data-form="#delete-{{$data->id}}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __("Revoke") }}" data-swal-title="Warning" data-swal-text="{{__("Do you want to revoke this client ?")}}" data-swal-icon="info" data-swal-confirm-text="{{__("Revoke")}}" data-swal-cancel-text="{{__("Cancel")}}"><i class="fa-solid fa-trash"></i></button>
-                                        <form method="POST" action="{{route(config('paagez.route_prefix').'.app.rest.revoke',[$data->id])}}" id="delete-{{$data->id}}">
+                                        <form method="POST" action="{{route(config('paagez.route_prefix').'.config.rest.revoke',[$data->id])}}" id="delete-{{$data->id}}">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                         </form>

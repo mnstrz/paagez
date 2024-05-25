@@ -18,11 +18,11 @@ class AdminMiddleware
         $roles = config('paagez.models.roles')::where('guard_name','web')->get()->pluck('name')->toArray();
         if(!\Auth::user())
         {
-            return redirect()->route('paagez.login');
+            return redirect()->route(config('paagez.route_prefix').'.login');
         }
         if(!\Auth::user()->hasRole($roles))
         {
-            return redirect()->route('paagez.login');
+            return redirect()->route(config('paagez.route_prefix').'.login');
         }
         if($request->query('notification'))
         {

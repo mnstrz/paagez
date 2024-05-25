@@ -15,15 +15,15 @@
                 <a href="{{ url(config('paagez.prefix')) }}"><span><i class="fa-solid fa-home"></i></span></a>
             </li>
             <li>
-                <a href="{{ route(config('paagez.route_prefix').'.app.roles.index') }}"><span>{{__('paagez.roles')}}</span></a>
+                <a href="{{ route(config('paagez.route_prefix').'.config.roles.index') }}"><span>{{__('paagez.roles')}}</span></a>
             </li>
             @if(!$data->id)
             <li>
-                <a href="{{ route(config('paagez.route_prefix').'.app.roles.create') }}"><span>{{__('Create')}} {{ __('paagez.roles') }}</span></a>
+                <a href="{{ route(config('paagez.route_prefix').'.config.roles.create') }}"><span>{{__('Create')}} {{ __('paagez.roles') }}</span></a>
             </li>
             @else
             <li>
-                <a href="{{ route(config('paagez.route_prefix').'.app.roles.edit',[$data->id]) }}"><span>{{__('Edit')}} {{ __('paagez.roles') }}</span></a>
+                <a href="{{ route(config('paagez.route_prefix').'.config.roles.edit',[$data->id]) }}"><span>{{__('Edit')}} {{ __('paagez.roles') }}</span></a>
             </li>
             @endif
         </ul>
@@ -34,7 +34,7 @@
             <div class="card p-3 shadow w-100 position-relative border-0">
                 <h4 class="text-primary fw-bold">{{ (!$data->id) ? __("Create") : __("Edit") }} {{ __('paagez.roles') }}</h4>
                 <x-alert-floating/>
-                <form method="POST" action="{{ (!$data->id) ? route(config('paagez.route_prefix').".app.roles.store") : route(config('paagez.route_prefix').".app.roles.update",[$data->id]) }}" class="py-3">
+                <form method="POST" action="{{ (!$data->id) ? route(config('paagez.route_prefix').".config.roles.store") : route(config('paagez.route_prefix').".config.roles.update",[$data->id]) }}" class="py-3">
                     @csrf
                     @if($data->id)
                     <input type="hidden" name="_method" value="PUT">

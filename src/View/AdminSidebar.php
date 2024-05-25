@@ -56,7 +56,7 @@ class AdminSidebar extends Component
                 'name' => 'app-settings',
                 'icon' => 'fa-solid fa-gear',
                 'label' => __('paagez.app_configuration'),
-                'url' => route(config('paagez.route_prefix').".app.config"),
+                'url' => route(config('paagez.route_prefix').".config.app"),
                 'roles' => ['admin']
             ]
         ];
@@ -70,6 +70,10 @@ class AdminSidebar extends Component
     {
         $childs = \collect($this->menus)->filter(function ($item) {
                         $parent = (isset($item['parent'])) ? $item['parent'] : null;
+                        if(!\Auth::user()->hasRole($item['roles']))
+                        {
+                            return false;
+                        }
                         return !is_null($parent);
                     })->sortBy('order')->map(function($item)
                     {
@@ -79,6 +83,10 @@ class AdminSidebar extends Component
                     });
         $this->menus = \collect($this->menus)->filter(function ($item) {
                         $parent = (isset($item['parent'])) ? $item['parent'] : null;
+                        if(!\Auth::user()->hasRole($item['roles']))
+                        {
+                            return false;
+                        }
                         return is_null($parent);
                     })->sortBy('order')->map(function($item) use($childs)
                     {

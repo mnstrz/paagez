@@ -46,7 +46,7 @@ trait TraitModule
     		$this->error('Module name only permitted alphabeth, numbers, or underscore');
     		return 1;
     	}
-        if(in_array($name,['admin','website','config','settings','users','user','role','permission','permissions','api','roles','app','update','install','setup','login','logout','sign','notifications','notification','rest','appearance','theme','display','dashboard','module','modules','email','mail','job','jobs']))
+        if(in_array($name,['admin','website','config','settings','users','user','role','permission','permissions','api','roles','app','update','install','setup','login','logout','sign','notifications','notification','rest','appearance','theme','display','dashboard','module','modules','email','mail','job','jobs','profile']))
         {
             $this->error('Module names are not permitted');
             return 1;

@@ -41,7 +41,7 @@ class Launcher extends Component
                 'name' => 'app_configuration',
                 'label' => __('paagez.app_configuration'),
                 'icon' => "fa-solid fa-gear",
-                'url' => route(config('paagez.route_prefix').".app.config"),
+                'url' => route(config('paagez.route_prefix').".config.app"),
                 'image' => '',
                 'roles' => ['admin']
             ]

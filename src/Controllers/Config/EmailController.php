@@ -1,6 +1,6 @@
 <?php
 
-namespace Monsterz\Paagez\Controllers\App;
+namespace Monsterz\Paagez\Controllers\Config;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class EmailController extends Controller
             'array' => __("ARRAY"),
             'failover' => __("FAILOVER"),
         ];
-        return view(config('paagez.theme').'::app.email',compact('mailers'));
+        return view(config('paagez.theme').'::config.email',compact('mailers'));
     }
 
     public function update(Request $request)
@@ -79,13 +79,13 @@ class EmailController extends Controller
                 'value' => $value,
             ]);
         }
-        return redirect(config('paagez.prefix')."/app/email")->with(["success" => __("Mail updated")]);
+        return redirect()->route(config('paagez.route_prefix').".config.email")->with(["success" => __("Mail updated")]);
     }
 
     public function reset()
     {
         config('paagez.models.config')::where('name','like',"mail_%")->delete();
-        return redirect(config('paagez.prefix')."/app/email")->with(["success" => __("Mail reset")]);
+        return redirect()->route(config('paagez.route_prefix').".config.email")->with(["success" => __("Mail reset")]);
     }
 
     public function test(Request $request)
@@ -100,9 +100,9 @@ class EmailController extends Controller
                 $mail->to($request->email)
                      ->subject($request->subject);
             });
-            return redirect(config('paagez.prefix')."/app/email")->with(["success" => __("Mail sent")]);
+            return redirect()->route(config('paagez.route_prefix').".config.email")->with(["success" => __("Mail sent")]);
         } catch (\Exception $e) {
-            return redirect(config('paagez.prefix')."/app/email")->with(["warning" => $e->getMessage()]);
+            return redirect()->route(config('paagez.route_prefix').".config.email")->with(["warning" => $e->getMessage()]);
         }
     }
 }
