@@ -23,7 +23,7 @@ class Command
 
 	public static function runComposerInstall()
     {
-        $process = new Process([config('simkes.composer').'/composer', 'install','--working-dir',base_path()]);
+        $process = new Process([config('paagez.composer').'/composer', 'install','--working-dir',base_path()]);
         $process->run();
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
@@ -36,7 +36,7 @@ class Command
         if (!self::isValidPackageName($package) || !self::isValidPackageVersion($version)) {
             throw new \Exception('Invalid package name or version');
         }
-        $command = [config('simkes.composer').'/composer','require', $package.":".$version,'--working-dir',base_path()];
+        $command = [config('paagez.composer').'/composer','require', $package.":".$version,'--working-dir',base_path()];
         $process = new Process($command);
         $process->run();
         if (!$process->isSuccessful()) {
