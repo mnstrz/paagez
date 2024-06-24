@@ -64,6 +64,13 @@ class PaagezProvider extends ServiceProvider{
 	        });
 		}
 
+		if(file_exists($this->path."routes/app.php"))
+		{
+	        \Route::middleware('web','admin')->prefix(config('paagez.prefix')."/".$module->route_prefix)->as(config('paagez.route_prefix').".".$module->route_name.".")->group(function () {
+	        	$this->loadRoutesFrom($this->path."routes/app.php");
+	        });
+		}
+
 		if(file_exists($this->path."routes/admin.php"))
 		{
 	        \Route::middleware('web','admin','role:admin')->prefix(config('paagez.prefix')."/".$module->route_prefix)->as(config('paagez.route_prefix').".".$module->route_name.".")->group(function () {

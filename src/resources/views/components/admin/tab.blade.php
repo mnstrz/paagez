@@ -3,7 +3,7 @@
   <ul class="nav nav-tabs">
     @foreach($tabs as $url => $label)
       <li class="nav-item">
-        <a class="nav-link {{ ($url == $active) ? 'active' : '' }}" aria-current="page" href="#">
+        <a class="nav-link {{ ($url == $active) ? 'active' : '' }}" aria-current="page" href="{{$url}}">
           <span>{!! $label !!}</span>
         </a>
       </li>

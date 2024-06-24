@@ -78,7 +78,7 @@ class CommandCreateResource extends Command
         }
         $this->info("Successfully create resource '{$this->title}'");
         $this->line("Insert this script into <fg=yellow>{$this->module_path}/routes/admin.php</>:");
-        $this->info("Route::resource('/$this->model_var',App\Modules\Student\Controllers\\".$this->controller_name."::class);");
+        $this->info("Route::resource('/$this->model_var',App\Modules\\".$this->module_name."\\Controllers\\".$this->controller_name."::class);");
         return 0;
     }
 

@@ -56,17 +56,9 @@ class CommandModuleUpdate extends Command
     public function singleModule()
     {
         try {
-            $version = $this->module_version;
-
-            $installed = config('paagez.models.module')::where('name',$this->module_name)->first();
-            if($installed)
+            if($this->installModule($this->namespace))
             {
-                $this->comment("module\\$this->module_name ..................................<fg=white>version $version</> Already installed\n");
-            }else{
-                if($this->installModule($this->namespace))
-                {
-                    return 0;
-                }
+                return 0;
             }
             return 0;
         } catch (\Exception $e) {

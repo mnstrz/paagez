@@ -10,7 +10,7 @@ class CommandCreateRoute extends Command
 {
     use TraitModule;
 
-	protected $signature = 'paagez:routes {--module=} {--all} {--web} {--api} {--admin}';
+	protected $signature = 'paagez:routes {--module=} {--all} {--web} {--api} {--admin} {--app}';
 	
 	protected $description = 'Create routes';
 
@@ -72,7 +72,7 @@ class CommandCreateRoute extends Command
 
     public function inputRoute($value=null)
     {
-        $routes = ['all','web','admin','api'];
+        $routes = ['all','web','admin','api','app'];
         $roles = \DB::table('roles')->where('guard_name','web')->where('name','!=','admin')->get();
         foreach ($roles as $key => $role) {
             $routes[] = $role->name;
@@ -99,7 +99,7 @@ class CommandCreateRoute extends Command
         $routes = [];
         if($this->option('all'))
         {
-            $routes = ['web','admin','api'];
+            $routes = ['web','admin','api','app'];
             $roles = \DB::table('roles')->where('guard_name','web')->where('name','!=','admin')->get();
             foreach ($roles as $key => $role) {
                 $routes[] = $role->name;
@@ -118,6 +118,10 @@ class CommandCreateRoute extends Command
         if($this->option('admin'))
         {
             $routes[] = 'admin';
+        }
+        if($this->option('app'))
+        {
+            $routes[] = 'app';
         }
         $roles = \DB::table('roles')->where('guard_name','web')->where('name','!=','admin')->get();
         foreach ($roles as $key => $role) {

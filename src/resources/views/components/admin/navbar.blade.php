@@ -47,7 +47,7 @@
 		<li class="d-block d-lg-none">
 			<a href="#" id="toggle-navbar-menu"><i class="fa-solid fa-grid text-primary"></i></a>
 		</li>
-		@if($update)
+		@if($update && \Auth::user()->hasRole('admin'))
 		<li>
 			<a href="{{ route(config('paagez.route_prefix').".update") }}" class="btn btn-pill btn-outline-primary link">{{__('Update')}} <span class="fa-fade bg-success"></span></a>
 		</li>

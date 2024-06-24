@@ -21,7 +21,8 @@ trait ResourceIndex
 @endpush
 
 @section("contents")
-    
+
+<div class="container">
     <div class="row">
         <div class="col-12">
             <div class="card p-3 shadow w-100 shadow border-0">
@@ -84,6 +85,7 @@ trait ResourceIndex
             </div>
         </div>
     </div>
+</div>
 
 @endsection
 
